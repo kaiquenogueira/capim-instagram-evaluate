@@ -66,13 +66,13 @@
     "handle": "capim.br",
     "followers": 21046,
     "posts": 246,
-    "overallScore": 70,
+    "overallScore": 78,
     "criteria": {
-      "frequency": 80,
+      "frequency": 75,
       "ctaAndLinks": 95,
-      "positioningClarity": 95,
-      "socialProof": 80
+      "positioningClarity": 98,
+      "socialProof": 90
     },
-    "timestamp": "2026-01-21T15:10:44.926Z"
+    "timestamp": "2026-01-21T15:37:56.325Z"
   }
 ]

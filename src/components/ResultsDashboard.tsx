@@ -100,7 +100,28 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
                element.style.transform = 'none';
                // Force width to ensure consistent rendering
                element.style.width = '1200px';
-               element.style.margin = '0 auto';
+               element.style.maxWidth = '1200px';
+               element.style.margin = '0';
+               element.style.borderRadius = '0'; // Remove rounded corners for PDF
+               element.style.border = 'none'; // Remove border for cleaner look
+               element.style.boxShadow = 'none'; // Remove shadow
+               
+               // Fix Header Alignment in PDF
+               const header = element.querySelector('.bg-gradient-to-r');
+               if (header instanceof HTMLElement) {
+                  header.style.paddingRight = '40px'; // Add extra padding
+                  header.style.display = 'flex';
+                  header.style.justifyContent = 'space-between';
+               }
+
+               // Fix Ranking Indicator overlap
+               const scoreContainer = element.querySelector('.flex.flex-col.items-end');
+               if (scoreContainer instanceof HTMLElement) {
+                  scoreContainer.style.minWidth = '180px'; // Give it more space
+                  scoreContainer.style.display = 'flex';
+                  scoreContainer.style.flexDirection = 'column';
+                  scoreContainer.style.alignItems = 'flex-end';
+               }
             }
           }
         });
