@@ -9,15 +9,150 @@ import {
   PolarRadiusAxis, 
   ResponsiveContainer 
 } from 'recharts';
-import { RefreshCcw, Share2, Award, TrendingUp, Users, Grid, UserCheck, Heart, MessageCircle, Star } from 'lucide-react';
+import { RefreshCcw, Share2, Award, TrendingUp, Users, Grid, UserCheck, Heart, MessageCircle, Star, ChevronDown, ChevronUp } from 'lucide-react';
 import { AnalysisResult } from '@/types';
+import { useState, useRef } from 'react';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import ShareModal from './ShareModal';
+import { sendEmailWithAttachment } from '@/actions/sendEmail';
 
 interface ResultsDashboardProps {
   result: AnalysisResult;
   onReset: () => void;
 }
 
+const CollapsibleSection = ({ 
+  title, 
+  icon: Icon, 
+  children, 
+  className = "",
+  defaultOpen = false,
+  forceOpen = false
+}: { 
+  title: string, 
+  icon: React.ElementType, 
+  children: React.ReactNode, 
+  className?: string,
+  defaultOpen?: boolean,
+  forceOpen?: boolean
+}) => {
+  const [localIsOpen, setLocalIsOpen] = useState(defaultOpen);
+  const isOpen = forceOpen || localIsOpen;
+
+  return (
+    <div className={`border-t border-slate-200/60 ${className}`}>
+      <button 
+        onClick={() => setLocalIsOpen(!localIsOpen)}
+        className="w-full flex items-center justify-between p-6 md:p-8 hover:bg-slate-50/50 transition-colors text-left"
+      >
+        <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+          <Icon size={24} className="text-capim-600" />
+          {title}
+        </h3>
+        {isOpen ? <ChevronUp className="text-slate-400" /> : <ChevronDown className="text-slate-400" />}
+      </button>
+      
+      <motion.div
+        initial={false}
+        animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
+        className="overflow-hidden"
+      >
+        <div className="px-6 md:px-8 pb-6 md:pb-8">
+          {children}
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+
 export default function ResultsDashboard({ result, onReset }: ResultsDashboardProps) {
+  const dashboardRef = useRef<HTMLDivElement>(null);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+
+  const handleShare = () => {
+    setIsShareModalOpen(true);
+  };
+
+  const handleSendEmail = async (email: string) => {
+    setIsSending(true);
+    setIsGeneratingPdf(true); // Force expand all sections
+    
+    try {
+      if (dashboardRef.current) {
+        // Wait for animations to complete
+        await new Promise(resolve => setTimeout(resolve, 800));
+
+        const canvas = await html2canvas(dashboardRef.current, {
+          useCORS: true,
+          scale: 1, // Reduced scale to avoid huge file sizes
+          logging: false,
+          allowTaint: true,
+          backgroundColor: '#ffffff',
+          windowWidth: 1200, // Force desktop width to prevent layout shifts
+          onclone: (clonedDoc) => {
+            // Ensure the cloned element is visible and has correct styles
+            const element = clonedDoc.getElementById('dashboard-content');
+            if (element) {
+               element.style.transform = 'none';
+               // Force width to ensure consistent rendering
+               element.style.width = '1200px';
+               element.style.margin = '0 auto';
+            }
+          }
+        });
+        
+        // Use JPEG with quality 0.8 instead of PNG to reduce size drastically
+        const imgData = canvas.toDataURL('image/jpeg', 1);
+        
+        // Calculate PDF dimensions to fit A4 or keep original aspect ratio
+        // For long dashboards, it's better to keep original ratio or split pages
+        // Here we'll create a single long page PDF for better viewing experience
+        const pdf = new jsPDF({
+          orientation: 'portrait',
+          unit: 'px',
+          format: [canvas.width, canvas.height]
+        });
+        
+        pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
+        
+        // Generate Blob
+        const pdfBlob = pdf.output('blob');
+        const sizeInMB = (pdfBlob.size / 1024 / 1024).toFixed(2);
+        console.log(`PDF Generated. Size: ${sizeInMB} MB`);
+
+        if (pdfBlob.size > 9 * 1024 * 1024) {
+           console.warn('PDF size is close to or exceeds 10MB limit. Consider reducing quality further.');
+        }
+        
+        // Prepare FormData
+        const formData = new FormData();
+        formData.append('file', pdfBlob, `relatorio-capim-${result.handle}.pdf`);
+        formData.append('email', email);
+        
+        // Call Server Action
+        const response = await sendEmailWithAttachment(formData);
+        
+        if (!response.success) {
+           console.error('Falha no envio:', response.message);
+           // You might want to show an error toast here
+           // For now, we just log it.
+        } else {
+           console.log('E-mail enviado com sucesso!');
+        }
+        
+      }
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+    } finally {
+      setIsSending(false);
+      setIsGeneratingPdf(false);
+    }
+  };
+
   const chartData = [
     { subject: 'Qualidade', A: result.metrics?.quality ?? 0, fullMark: 100 },
     { subject: 'Consistência', A: result.metrics?.consistency ?? 0, fullMark: 100 },
@@ -60,7 +195,11 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
       animate={{ opacity: 1, y: 0 }}
       className="w-full max-w-7xl mx-auto"
     >
-      <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200/60">
+      <div 
+        ref={dashboardRef}
+        id="dashboard-content"
+        className="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200/60"
+      >
         
         {/* Header com Perfil */}
         <div className="bg-gradient-to-r from-capim-50 via-white to-white p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 border-b border-slate-200/60">
@@ -82,7 +221,10 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
                )}
             </div>
             <div className="w-px h-16 bg-slate-200 hidden md:block"></div>
-            <button className="p-3 text-slate-400 hover:text-capim-600 hover:bg-capim-50 rounded-full transition-all">
+            <button 
+              onClick={handleShare}
+              className="p-3 text-slate-400 hover:text-capim-600 hover:bg-capim-50 rounded-full transition-all"
+            >
                <Share2 size={24} />
             </button>
           </div>
@@ -178,11 +320,12 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
 
         {/* Detailed Metrics Checklist */}
         {result.detailedMetrics && (
-          <div className="p-6 md:p-8 border-t border-slate-200/60 bg-white">
-             <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
-               <Award size={24} className="text-capim-600" />
-               Checklist de Qualidade do Perfil
-             </h3>
+          <CollapsibleSection 
+            title="Checklist de Qualidade do Perfil" 
+            icon={Award} 
+            className="bg-white"
+            forceOpen={isGeneratingPdf}
+          >
              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
                <div className="space-y-6">
                   {/* Item 1 */}
@@ -250,16 +393,16 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
                   
                </div>
              </div>
-          </div>
+          </CollapsibleSection>
         )}
 
         {/* Bio Analysis Section */}
         {result.bioAnalysis && (
-          <div className="p-6 md:p-8 border-t border-slate-200/60">
-            <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
-              <UserCheck size={24} className="text-capim-600" />
-              Análise de Bio e Conversão
-            </h3>
+          <CollapsibleSection
+            title="Análise de Bio e Conversão"
+            icon={UserCheck}
+            forceOpen={isGeneratingPdf}
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
                 <div className="space-y-6">
@@ -314,16 +457,17 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
                 </ul>
               </div>
             </div>
-          </div>
+          </CollapsibleSection>
         )}
 
         {/* Posts Analysis Section */}
         {result.postsAnalysis && result.postsAnalysis.length > 0 && (
-          <div className="p-6 md:p-8 border-t border-slate-200/60 bg-slate-50/30">
-            <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
-              <Grid size={24} className="text-capim-600" />
-              Análise Visual dos Últimos Posts
-            </h3>
+          <CollapsibleSection
+            title="Análise Visual dos Últimos Posts"
+            icon={Grid}
+            className="bg-slate-50/30"
+            forceOpen={isGeneratingPdf}
+          >
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {result.postsAnalysis.map((post, idx) => (
                 <motion.div 
@@ -357,7 +501,7 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
                 </motion.div>
               ))}
             </div>
-          </div>
+          </CollapsibleSection>
         )}
 
         <div className="p-6 bg-slate-50 border-t border-slate-200/60 flex justify-center">
@@ -371,6 +515,13 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
         </div>
 
       </div>
+
+      <ShareModal 
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        onSend={handleSendEmail}
+        isSending={isSending}
+      />
     </motion.div>
   );
 }

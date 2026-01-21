@@ -253,6 +253,7 @@ export async function analyzeProfile(handle: string): Promise<AnalysisResult> {
         followers: data.stats.followers,
         posts: data.stats.posts,
         overallScore: data.detailedMetrics.overallScore,
+        criteria: data.detailedMetrics.criteria,
         timestamp: new Date().toISOString()
       }).catch(err => console.error("Failed to save profile to DB:", err));
 

@@ -1,89 +1,38 @@
 import fs from 'fs/promises';
 import path from 'path';
+import { Criteria } from '@/types';
 
-const FILENAME = 'profiles.json';
-const DATA_DIR = path.join(process.cwd(), 'data');
-// Na Vercel, apenas /tmp é gravável em tempo de execução
-const TMP_DIR = '/tmp'; 
-
-// Detecta se estamos em ambiente que exige escrita em /tmp (Vercel production)
-// Nota: NODE_ENV pode ser production localmente também, então idealmente checaríamos uma ENV da Vercel,
-// mas usar /tmp como fallback é seguro.
-const IS_VERCEL = process.env.VERCEL === '1';
-
-const DB_PATH = IS_VERCEL ? path.join(TMP_DIR, FILENAME) : path.join(DATA_DIR, FILENAME);
-const ORIGINAL_DB_PATH = path.join(DATA_DIR, FILENAME);
+const DB_PATH = path.join(process.cwd(), 'data', 'profiles.json');
 
 export interface StoredProfile {
   handle: string;
   followers: number;
   posts: number;
   overallScore: number;
+  criteria?: Criteria;
   timestamp: string;
 }
 
-async function ensureDbExists() {
-  try {
-    await fs.access(DB_PATH);
-  } catch {
-    // Se o arquivo destino não existe
-    if (IS_VERCEL) {
-      try {
-        // Tenta copiar os dados iniciais do projeto para o /tmp
-        const initialData = await fs.readFile(ORIGINAL_DB_PATH, 'utf-8').catch(() => '[]');
-        await fs.writeFile(DB_PATH, initialData);
-        console.log(`Database initialized in ${DB_PATH} from original data`);
-      } catch (e) {
-        console.warn(`Could not initialize DB in ${DB_PATH}, starting empty`, e);
-        await fs.writeFile(DB_PATH, '[]');
-      }
-    } else {
-      // Em desenvolvimento local, cria se não existir
-      try {
-        await fs.mkdir(path.dirname(DB_PATH), { recursive: true });
-        await fs.writeFile(DB_PATH, '[]');
-      } catch (e) {
-        console.error('Error creating local DB:', e);
-      }
-    }
-  }
-}
-
 export async function getProfiles(): Promise<StoredProfile[]> {
-  await ensureDbExists();
   try {
     const data = await fs.readFile(DB_PATH, 'utf-8');
     return JSON.parse(data);
   } catch (error) {
-    console.error(`Error reading profiles from ${DB_PATH}:`, error);
-    // Tenta ler do original como fallback se o temporário falhar
-    if (IS_VERCEL) {
-        try {
-            const backupData = await fs.readFile(ORIGINAL_DB_PATH, 'utf-8');
-            return JSON.parse(backupData);
-        } catch {
-            return [];
-        }
-    }
     return [];
   }
 }
 
 export async function saveProfile(profile: StoredProfile) {
-  try {
-    const profiles = await getProfiles();
-    const existingIndex = profiles.findIndex(p => p.handle === profile.handle);
-    
-    if (existingIndex >= 0) {
-      profiles[existingIndex] = profile;
-    } else {
-      profiles.push(profile);
-    }
-    
-    await fs.writeFile(DB_PATH, JSON.stringify(profiles, null, 2));
-  } catch (error) {
-    console.error('Failed to save profile (filesystem might be readonly):', error);
+  const profiles = await getProfiles();
+  const existingIndex = profiles.findIndex(p => p.handle === profile.handle);
+  
+  if (existingIndex >= 0) {
+    profiles[existingIndex] = profile;
+  } else {
+    profiles.push(profile);
   }
+  
+  await fs.writeFile(DB_PATH, JSON.stringify(profiles, null, 2));
 }
 
 export async function getRankingStats(followers: number, posts: number, overallScore: number) {

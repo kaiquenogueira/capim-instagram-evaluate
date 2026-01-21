@@ -1,3 +1,11 @@
+export type Criteria = {
+  frequency: number;
+  ctaAndLinks: number;
+  positioningClarity: number;
+  socialProof: number;
+  resultsProof?: number;
+};
+
 export type AnalysisResult = {
   handle: string;
   profilePictureUrl?: string;
@@ -23,13 +31,7 @@ export type AnalysisResult = {
   };
   detailedMetrics?: {
     overallScore: number;
-    criteria: {
-      frequency: number;
-      ctaAndLinks: number;
-      positioningClarity: number;
-      socialProof: number;
-      resultsProof: number;
-    };
+    criteria: Criteria;
   };
   bioAnalysis: {
     clarity: number;
