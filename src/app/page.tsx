@@ -76,9 +76,7 @@ export default function Home() {
         </div>
       </div>
       
-      <div className="absolute bottom-6 text-center text-neutral-400 text-sm">
-        Capim Tecnologia • Avaliação de Instagram
-      </div>
+     
     </main>
   );
 }

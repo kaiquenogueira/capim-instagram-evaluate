@@ -570,7 +570,7 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
           </CollapsibleSection>
         )}
 
-        <div className="p-6 bg-neutral-50 border-t border-neutral-200/60 flex justify-center">
+        <div className="p-8 bg-neutral-50 border-t border-neutral-200/60 flex flex-col items-center gap-6">
           <button
             onClick={onReset}
             className="flex items-center gap-2 px-8 py-3 bg-white border border-neutral-300 text-neutral-800 font-semibold rounded-2xl hover:bg-neutral-50 hover:border-capim-400 hover:text-capim-600 transition-all shadow-sm"
@@ -578,6 +578,12 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
             <RefreshCcw size={18} />
             Nova Análise
           </button>
+
+          <div className="flex items-center gap-2 mt-2">
+            <span className="text-xs font-medium text-neutral-400 uppercase tracking-wider">Powered by</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/assets/logo.svg" alt="Capim" className="h-5 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all" />
+          </div>
         </div>
 
       </div>
