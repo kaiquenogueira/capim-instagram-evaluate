@@ -126,7 +126,7 @@ export async function analyzeProfile(handle: string): Promise<AnalysisResult> {
         "tone": "Descreva o tom em 2-3 palavras (ex: Profissional e Acolhedor)",
         "suggestions": ["Sugestão 1 para melhorar bio", "Sugestão 2"]
       },
-      "summary": "Um resumo de 2-3 frases sobre o perfil, destacando pontos fortes e fracos.",
+      "summary": "Um resumo de 2 frases sobre o perfil, destacando pontos fortes e fracos.",
       "tips": ["Dica prática 1", "Dica prática 2", "Dica prática 3", "Dica prática 4"]
     }
 
@@ -161,9 +161,9 @@ export async function analyzeProfile(handle: string): Promise<AnalysisResult> {
     postsPromptText += `
       Retorne APENAS um JSON array com 3 objetos (um para cada post na ordem), seguindo esta estrutura:
       [
-        { "analysis": "Análise crítica do post 1 (visual + copy) em 2 frases." },
-        { "analysis": "Análise crítica do post 2 (visual + copy) em 2 frases." },
-        { "analysis": "Análise crítica do post 3 (visual + copy) em 2 frases." }
+        { "analysis": "Análise crítica do post 1 (visual + copy) em 1 frase objetiva e profissional." },
+        { "analysis": "Análise crítica do post 2 (visual + copy) em 1 frase objetiva e profissional." },
+        { "analysis": "Análise crítica do post 3 (visual + copy) em 1 frase objetiva e profissional." }
       ]
     `;
 

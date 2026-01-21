@@ -110,7 +110,7 @@ export default function LoadingOverlay({ onComplete, handle = "clinica" }: Loadi
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -20, opacity: 0 }}
-                className="text-xl font-semibold text-slate-800 text-center"
+                className="text-xl font-semibold text-neutral-800 text-center"
             >
                 {steps[currentStep].text}
             </motion.h2>
@@ -119,7 +119,7 @@ export default function LoadingOverlay({ onComplete, handle = "clinica" }: Loadi
                     <div 
                         key={step.id} 
                         className={`h-1.5 rounded-full transition-all duration-500 ${
-                            idx <= currentStep ? 'w-8 bg-capim-600' : 'w-2 bg-slate-200'
+                            idx <= currentStep ? 'w-8 bg-capim-600' : 'w-2 bg-neutral-200'
                         }`}
                     />
                 ))}

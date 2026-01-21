@@ -39,14 +39,14 @@ export default function ScannerForm({ onScan }: ScannerFormProps) {
       exit={{ opacity: 0, scale: 0.9 }}
       className="w-full max-w-lg mx-auto"
     >
-      <div className="bg-white rounded-3xl shadow-xl p-7 md:p-9 border border-slate-200/60">
+      <div className="bg-white rounded-3xl shadow-xl p-7 md:p-9 border border-neutral-200/60">
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           <div className="space-y-2">
-            <label htmlFor="handle" className="text-sm font-medium text-slate-700 ml-1">
+            <label htmlFor="handle" className="text-sm font-medium text-neutral-700 ml-1">
               Perfil do Instagram da Clínica
             </label>
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-neutral-400">
                 <Instagram size={20} />
               </div>
               <input
@@ -58,7 +58,7 @@ export default function ScannerForm({ onScan }: ScannerFormProps) {
                   setError('');
                 }}
                 placeholder="@suaclinica"
-                className="block w-full pl-12 pr-4 py-4 bg-white border border-slate-200 rounded-2xl text-lg focus:ring-4 focus:ring-capim-200 focus:border-capim-500 outline-none transition-all placeholder:text-slate-300 shadow-sm"
+                className="block w-full pl-12 pr-4 py-4 bg-white border border-neutral-200 rounded-2xl text-lg focus:ring-4 focus:ring-capim-200 focus:border-capim-500 outline-none transition-all placeholder:text-neutral-300 shadow-sm"
                 autoComplete="off"
               />
             </div>
@@ -83,7 +83,7 @@ export default function ScannerForm({ onScan }: ScannerFormProps) {
         </form>
 
         <div className="mt-6 text-center">
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-neutral-400">
             Análise baseada em dados públicos e IA. Não solicitamos senha.
           </p>
         </div>

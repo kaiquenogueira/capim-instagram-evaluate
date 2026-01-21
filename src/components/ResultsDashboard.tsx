@@ -1,15 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { 
-  Radar, 
-  RadarChart, 
-  PolarGrid, 
-  PolarAngleAxis, 
-  PolarRadiusAxis, 
-  ResponsiveContainer 
-} from 'recharts';
-import { RefreshCcw, Share2, Award, TrendingUp, Users, Grid, UserCheck, Heart, MessageCircle, Star, ChevronDown, ChevronUp } from 'lucide-react';
+import { RefreshCcw, Share2, Award, TrendingUp, Users, Grid, UserCheck, Heart, MessageCircle, Star, ChevronDown, ChevronUp, Sparkles, Repeat, Fingerprint } from 'lucide-react';
 import { AnalysisResult } from '@/types';
 import { useState, useRef } from 'react';
 import html2canvas from 'html2canvas';
@@ -41,16 +33,16 @@ const CollapsibleSection = ({
   const isOpen = forceOpen || localIsOpen;
 
   return (
-    <div className={`border-t border-slate-200/60 ${className}`}>
+    <div className={`border-t border-neutral-200/60 ${className}`}>
       <button 
         onClick={() => setLocalIsOpen(!localIsOpen)}
-        className="w-full flex items-center justify-between p-6 md:p-8 hover:bg-slate-50/50 transition-colors text-left"
+        className="w-full flex items-center justify-between p-6 md:p-8 hover:bg-neutral-50/50 transition-colors text-left"
       >
-        <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+        <h3 className="text-xl font-bold text-neutral-900 flex items-center gap-2">
           <Icon size={24} className="text-capim-600" />
           {title}
         </h3>
-        {isOpen ? <ChevronUp className="text-slate-400" /> : <ChevronDown className="text-slate-400" />}
+        {isOpen ? <ChevronUp className="text-neutral-400" /> : <ChevronDown className="text-neutral-400" />}
       </button>
       
       <motion.div
@@ -66,6 +58,56 @@ const CollapsibleSection = ({
     </div>
   );
 };
+
+const CircularProgress = ({ value, color, size = 100, strokeWidth = 8 }: { value: number, color: string, size?: number, strokeWidth?: number }) => {
+  const radius = (size - strokeWidth) / 2;
+  const circumference = radius * 2 * Math.PI;
+  const offset = circumference - (value / 100) * circumference;
+
+  return (
+    <div className="relative flex items-center justify-center" style={{ width: size, height: size }}>
+      <svg className="transform -rotate-90 w-full h-full">
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          stroke="#E9E9F2"
+          strokeWidth={strokeWidth}
+          fill="transparent"
+        />
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          stroke={color}
+          strokeWidth={strokeWidth}
+          fill="transparent"
+          strokeDasharray={circumference}
+          strokeDashoffset={offset}
+          strokeLinecap="round"
+          className="transition-all duration-1000 ease-out"
+        />
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <span className="text-2xl font-black text-neutral-800">{value}</span>
+      </div>
+    </div>
+  );
+};
+
+const MetricCard = ({ title, value, icon: Icon, color }: { title: string, value: number, icon: any, color: { hex: string, bg: string, text: string } }) => (
+  <div className="flex flex-col items-center p-5 bg-white rounded-2xl border border-neutral-200 shadow-sm hover:shadow-md transition-all h-full justify-between">
+    <div className="flex items-center gap-2 mb-3 w-full">
+       <div className={`p-2 rounded-lg ${color.bg} ${color.text}`}>
+         <Icon size={18} />
+       </div>
+       <span className="text-sm font-bold text-neutral-700">{title}</span>
+    </div>
+    <div className="flex-1 flex items-center justify-center py-2">
+       <CircularProgress value={value} color={color.hex} size={90} strokeWidth={8} />
+    </div>
+  </div>
+);
 
 export default function ResultsDashboard({ result, onReset }: ResultsDashboardProps) {
   const dashboardRef = useRef<HTMLDivElement>(null);
@@ -174,13 +216,6 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
     }
   };
 
-  const chartData = [
-    { subject: 'Qualidade', A: result.metrics?.quality ?? 0, fullMark: 100 },
-    { subject: 'Consistência', A: result.metrics?.consistency ?? 0, fullMark: 100 },
-    { subject: 'Branding', A: result.metrics?.branding ?? 0, fullMark: 100 },
-    { subject: 'Interação', A: result.metrics?.interaction ?? 0, fullMark: 100 },
-  ];
-
   const averageScore = Math.round(
     ((result.metrics?.quality ?? 0) + (result.metrics?.consistency ?? 0) + (result.metrics?.branding ?? 0) + (result.metrics?.interaction ?? 0)) / 4
   );
@@ -195,8 +230,8 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
     
     if (isAboveAverage) {
       return (
-        <div className="flex items-center gap-1 mt-1.5 text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100/50 shadow-sm">
-           <Star size={10} className="fill-emerald-600" />
+        <div className="flex items-center gap-1 mt-1.5 text-xs font-bold text-lime-600 bg-lime-50 px-2.5 py-1 rounded-full border border-lime-100/50 shadow-sm">
+           <Star size={10} className="fill-lime-600" />
            <span>Acima da média{suffix}</span>
         </div>
       );
@@ -219,32 +254,32 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
       <div 
         ref={dashboardRef}
         id="dashboard-content"
-        className="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200/60"
+        className="bg-white rounded-3xl shadow-xl overflow-hidden border border-neutral-200/60"
       >
         
         {/* Header com Perfil */}
-        <div className="bg-gradient-to-r from-capim-50 via-white to-white p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 border-b border-slate-200/60">
+        <div className="bg-gradient-to-r from-capim-50 via-white to-white p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 border-b border-neutral-200/60">
           <div className="flex items-center gap-6">
       
             
             <div>
-              <h2 className="text-3xl font-bold text-slate-900 tracking-tight">@{result.handle}</h2>
-              <p className="text-slate-600 font-medium">Relatório de Performance</p>
+              <h2 className="text-3xl font-bold text-neutral-900 tracking-tight">@{result.handle}</h2>
+              <p className="text-neutral-600 font-medium">Relatório de Performance</p>
             </div>
           </div>
 
           <div className="flex items-center gap-6">
             <div className="flex flex-col items-end">
-               <span className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Score Geral</span>
+               <span className="text-sm font-semibold text-neutral-500 uppercase tracking-wider">Score Geral</span>
                <span className="text-5xl font-black text-capim-600">{averageScore}</span>
                {result.ranking && (
                  <RankingIndicator value={averageScore} average={result.ranking.avgOverallScore} />
                )}
             </div>
-            <div className="w-px h-16 bg-slate-200 hidden md:block"></div>
+            <div className="w-px h-16 bg-neutral-200 hidden md:block"></div>
             <button 
               onClick={handleShare}
-              className="p-3 text-slate-400 hover:text-capim-600 hover:bg-capim-50 rounded-full transition-all"
+              className="p-3 text-neutral-400 hover:text-capim-600 hover:bg-capim-50 rounded-full transition-all"
             >
                <Share2 size={24} />
             </button>
@@ -253,30 +288,30 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
 
         {/* Stats Bar */}
         {result.stats && (
-          <div className="grid grid-cols-3 divide-x divide-slate-100 border-b border-slate-100 bg-slate-50/50">
-            <div className="p-4 flex flex-col items-center justify-center hover:bg-slate-50 transition-colors">
-              <div className="flex items-center gap-2 text-slate-500 mb-1">
+          <div className="grid grid-cols-3 divide-x divide-neutral-100 border-b border-neutral-100 bg-neutral-50/50">
+            <div className="p-4 flex flex-col items-center justify-center hover:bg-neutral-50 transition-colors">
+              <div className="flex items-center gap-2 text-neutral-500 mb-1">
                 <Users size={18} />
                 <span className="text-sm font-medium">Seguidores</span>
               </div>
-              <span className="text-xl font-bold text-slate-800">{formatNumber(result.stats.followers)}</span>
+              <span className="text-xl font-bold text-neutral-800">{formatNumber(result.stats.followers)}</span>
               {result.ranking && (
                 <RankingIndicator value={result.stats.followers} average={result.ranking.avgFollowers} />
               )}
             </div>
-            <div className="p-4 flex flex-col items-center justify-center hover:bg-slate-50 transition-colors">
-              <div className="flex items-center gap-2 text-slate-500 mb-1">
+            <div className="p-4 flex flex-col items-center justify-center hover:bg-neutral-50 transition-colors">
+              <div className="flex items-center gap-2 text-neutral-500 mb-1">
                 <UserCheck size={18} />
                 <span className="text-sm font-medium">Seguindo</span>
               </div>
-              <span className="text-xl font-bold text-slate-800">{formatNumber(result.stats.following)}</span>
+              <span className="text-xl font-bold text-neutral-800">{formatNumber(result.stats.following)}</span>
             </div>
-            <div className="p-4 flex flex-col items-center justify-center hover:bg-slate-50 transition-colors">
-              <div className="flex items-center gap-2 text-slate-500 mb-1">
+            <div className="p-4 flex flex-col items-center justify-center hover:bg-neutral-50 transition-colors">
+              <div className="flex items-center gap-2 text-neutral-500 mb-1">
                 <Grid size={18} />
                 <span className="text-sm font-medium">Posts</span>
               </div>
-              <span className="text-xl font-bold text-slate-800">{formatNumber(result.stats.posts)}</span>
+              <span className="text-xl font-bold text-neutral-800">{formatNumber(result.stats.posts)}</span>
               {result.ranking && (
                 <RankingIndicator value={result.stats.posts} average={result.ranking.avgPosts} />
               )}
@@ -284,136 +319,146 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
           </div>
         )}
 
-        <div className="p-6 md:p-8 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
-          
-          <div className="flex flex-col items-center justify-center min-h-[500px] bg-slate-50 rounded-2xl p-6 border border-slate-200/60">
-            <h3 className="text-lg font-semibold text-slate-800 mb-5 flex items-center gap-2">
-              <TrendingUp size={40} className="text-capim-600" />
-              Métricas do Perfil
-            </h3>
-            <div className="w-full h-[450px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <RadarChart cx="50%" cy="50%" outerRadius="70%" data={chartData}>
-                  <PolarGrid stroke="#e2e8f0" />
-                  <PolarAngleAxis dataKey="subject" tick={{ fill: '#334155', fontSize: 13, fontWeight: 600 }} />
-                  <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
-                  <Radar
-                    name="Performance"
-                    dataKey="A"
-                    stroke="#32205F"
-                    strokeWidth={3}
-                    fill="#8B5CF6"
-                    fillOpacity={0.4}
-                  />
-                </RadarChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-lg font-semibold text-slate-800 mb-2 flex items-center gap-2">
-                <Award size={20} className="text-capim-600" />
-                Resumo da IA
-              </h3>
-              <p className="text-slate-700 leading-relaxed bg-capim-50 p-4 rounded-2xl border border-capim-100">
-                {result.summary}
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-slate-800 mb-3">
-                Dicas para crescer
-              </h3>
-              <ul className="space-y-3">
-                {result.tips?.map((tip, idx) => (
-                  <li key={idx} className="flex gap-3 items-start">
-                    <div className="min-w-[28px] h-7 bg-capim-100 text-capim-700 rounded-full flex items-center justify-center text-xs font-bold mt-0.5 border border-capim-200/70">
-                      {idx + 1}
-                    </div>
-                    <p className="text-slate-700 text-sm">{tip}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+        {/* AI Summary Section - Full Width */}
+        <div className="p-6 md:p-8 border-b border-neutral-200/60 bg-white">
+          <h3 className="text-lg font-semibold text-neutral-800 mb-4 flex items-center gap-2">
+            <Award size={20} className="text-capim-600" />
+            Resumo da Análise
+          </h3>
+          <p className="text-neutral-700 leading-relaxed text-lg bg-capim-50/50 p-6 rounded-2xl border border-capim-100">
+            {result.summary}
+          </p>
         </div>
 
-        {/* Detailed Metrics Checklist */}
-        {result.detailedMetrics && (
-          <CollapsibleSection 
-            title="Checklist de Qualidade do Perfil" 
-            icon={Award} 
-            className="bg-white"
-            forceOpen={isGeneratingPdf}
-          >
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
-               <div className="space-y-6">
+        <div className="p-6 md:p-8 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 border-b border-neutral-200/60">
+          
+          {/* Metrics Grid */}
+          <div className="flex flex-col items-center justify-center bg-neutral-50 rounded-2xl p-6 border border-neutral-200/60 h-full">
+            <h3 className="text-lg font-semibold text-neutral-800 mb-5 flex items-center gap-2 w-full">
+              <TrendingUp size={24} className="text-capim-600" />
+              Métricas do Perfil
+            </h3>
+            <div className="grid grid-cols-2 gap-4 w-full h-full">
+              <MetricCard 
+                title="Qualidade" 
+                value={result.metrics?.quality ?? 0} 
+                icon={Sparkles} 
+                color={{ hex: '#9333ea', bg: 'bg-purple-50', text: 'text-purple-600' }} 
+              />
+              <MetricCard 
+                title="Consistência" 
+                value={result.metrics?.consistency ?? 0} 
+                icon={Repeat} 
+                color={{ hex: '#3DE4F5', bg: 'bg-blue-50', text: 'text-blue-600' }} 
+              />
+              <MetricCard 
+                title="Branding" 
+                value={result.metrics?.branding ?? 0} 
+                icon={Fingerprint} 
+                color={{ hex: '#E94A4A', bg: 'bg-pink-50', text: 'text-pink-600' }} 
+              />
+              <MetricCard 
+                title="Interação" 
+                value={result.metrics?.interaction ?? 0} 
+                icon={MessageCircle} 
+                color={{ hex: '#F1AF0F', bg: 'bg-orange-50', text: 'text-orange-600' }} 
+              />
+            </div>
+          </div>
+
+          {/* Detailed Metrics Checklist (Moved from Accordion) */}
+          <div className="flex flex-col bg-white rounded-2xl p-6 border border-neutral-200 shadow-sm">
+            <h3 className="text-lg font-semibold text-neutral-800 mb-6 flex items-center gap-2">
+              <Award size={24} className="text-capim-600" />
+              Checklist de Qualidade
+            </h3>
+            
+            {result.detailedMetrics && (
+               <div className="flex flex-col justify-center flex-1 space-y-8">
                   {/* Item 1 */}
                   <div>
-                    <div className="flex justify-between text-sm font-semibold mb-2 text-slate-700">
+                    <div className="flex justify-between text-sm font-semibold mb-2 text-neutral-700">
                       <span>Frequência e Constância</span>
-                      <span className="text-slate-900">{result.detailedMetrics.criteria.frequency}/100</span>
+                      <span className="text-neutral-900">{result.detailedMetrics.criteria.frequency}/100</span>
                     </div>
-                    <div className="h-3 bg-slate-100 rounded-full overflow-hidden border border-slate-100">
+                    <div className="h-3 bg-neutral-100 rounded-full overflow-hidden border border-neutral-100">
                       <motion.div 
                         initial={{ width: 0 }}
                         animate={{ width: `${result.detailedMetrics.criteria.frequency}%` }}
                         transition={{ duration: 1, ease: "easeOut" }}
-                        className={`h-full rounded-full ${result.detailedMetrics.criteria.frequency >= 70 ? 'bg-emerald-500' : result.detailedMetrics.criteria.frequency >= 40 ? 'bg-amber-400' : 'bg-red-400'}`} 
+                        className={`h-full rounded-full ${result.detailedMetrics.criteria.frequency >= 70 ? 'bg-lime-700' : result.detailedMetrics.criteria.frequency >= 40 ? 'bg-amber-400' : 'bg-red-400'}`} 
                       />
                     </div>
                   </div>
                    {/* Item 2 */}
                   <div>
-                    <div className="flex justify-between text-sm font-semibold mb-2 text-slate-700">
-                      <span>Links e CTA (WhatsApp/Agendamento)</span>
-                      <span className="text-slate-900">{result.detailedMetrics.criteria.ctaAndLinks}/100</span>
+                    <div className="flex justify-between text-sm font-semibold mb-2 text-neutral-700">
+                      <span>Links e CTA</span>
+                      <span className="text-neutral-900">{result.detailedMetrics.criteria.ctaAndLinks}/100</span>
                     </div>
-                    <div className="h-3 bg-slate-100 rounded-full overflow-hidden border border-slate-100">
+                    <div className="h-3 bg-neutral-100 rounded-full overflow-hidden border border-neutral-100">
                       <motion.div 
                         initial={{ width: 0 }}
                         animate={{ width: `${result.detailedMetrics.criteria.ctaAndLinks}%` }}
                         transition={{ duration: 1, ease: "easeOut", delay: 0.1 }}
-                        className={`h-full rounded-full ${result.detailedMetrics.criteria.ctaAndLinks >= 70 ? 'bg-emerald-500' : result.detailedMetrics.criteria.ctaAndLinks >= 40 ? 'bg-amber-400' : 'bg-red-400'}`} 
+                        className={`h-full rounded-full ${result.detailedMetrics.criteria.ctaAndLinks >= 70 ? 'bg-lime-700' : result.detailedMetrics.criteria.ctaAndLinks >= 40 ? 'bg-amber-400' : 'bg-red-400'}`} 
                       />
                     </div>
                   </div>
                    {/* Item 3 */}
                   <div>
-                    <div className="flex justify-between text-sm font-semibold mb-2 text-slate-700">
+                    <div className="flex justify-between text-sm font-semibold mb-2 text-neutral-700">
                       <span>Clareza de Posicionamento</span>
-                      <span className="text-slate-900">{result.detailedMetrics.criteria.positioningClarity}/100</span>
+                      <span className="text-neutral-900">{result.detailedMetrics.criteria.positioningClarity}/100</span>
                     </div>
-                    <div className="h-3 bg-slate-100 rounded-full overflow-hidden border border-slate-100">
+                    <div className="h-3 bg-neutral-100 rounded-full overflow-hidden border border-neutral-100">
                       <motion.div 
                         initial={{ width: 0 }}
                         animate={{ width: `${result.detailedMetrics.criteria.positioningClarity}%` }}
                         transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-                        className={`h-full rounded-full ${result.detailedMetrics.criteria.positioningClarity >= 70 ? 'bg-emerald-500' : result.detailedMetrics.criteria.positioningClarity >= 40 ? 'bg-amber-400' : 'bg-red-400'}`} 
+                        className={`h-full rounded-full ${result.detailedMetrics.criteria.positioningClarity >= 70 ? 'bg-lime-700' : result.detailedMetrics.criteria.positioningClarity >= 40 ? 'bg-amber-400' : 'bg-red-400'}`} 
                       />
                     </div>
                   </div>
-               </div>
-               <div className="space-y-6">
                    {/* Item 4 */}
                   <div>
-                    <div className="flex justify-between text-sm font-semibold mb-2 text-slate-700">
-                      <span>Prova Social (Depoimentos)</span>
-                      <span className="text-slate-900">{result.detailedMetrics.criteria.socialProof}/100</span>
+                    <div className="flex justify-between text-sm font-semibold mb-2 text-neutral-700">
+                      <span>Prova Social</span>
+                      <span className="text-neutral-900">{result.detailedMetrics.criteria.socialProof}/100</span>
                     </div>
-                    <div className="h-3 bg-slate-100 rounded-full overflow-hidden border border-slate-100">
+                    <div className="h-3 bg-neutral-100 rounded-full overflow-hidden border border-neutral-100">
                       <motion.div 
                         initial={{ width: 0 }}
                         animate={{ width: `${result.detailedMetrics.criteria.socialProof}%` }}
                         transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
-                        className={`h-full rounded-full ${result.detailedMetrics.criteria.socialProof >= 70 ? 'bg-emerald-500' : result.detailedMetrics.criteria.socialProof >= 40 ? 'bg-amber-400' : 'bg-red-400'}`} 
+                        className={`h-full rounded-full ${result.detailedMetrics.criteria.socialProof >= 70 ? 'bg-lime-700' : result.detailedMetrics.criteria.socialProof >= 40 ? 'bg-amber-400' : 'bg-red-400'}`} 
                       />
                     </div>
                   </div>
-                  
                </div>
-             </div>
+            )}
+          </div>
+        </div>
+
+        {/* Dicas para crescer Section */}
+        {result.tips && result.tips.length > 0 && (
+          <CollapsibleSection
+            title="Dicas para crescer"
+            icon={TrendingUp}
+            forceOpen={isGeneratingPdf}
+            defaultOpen={true}
+            className="bg-white"
+          >
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+               {result.tips.map((tip, idx) => (
+                  <li key={idx} className="flex gap-3 items-start bg-neutral-50 p-5 rounded-xl border border-neutral-100 hover:border-capim-200 transition-colors">
+                    <div className="min-w-[32px] h-8 bg-capim-100 text-capim-700 rounded-full flex items-center justify-center text-sm font-bold mt-0.5 border border-capim-200/70 shadow-sm">
+                      {idx + 1}
+                    </div>
+                    <p className="text-neutral-700 text-base leading-relaxed">{tip}</p>
+                  </li>
+               ))}
+            </ul>
           </CollapsibleSection>
         )}
 
@@ -425,14 +470,14 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
             forceOpen={isGeneratingPdf}
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
+              <div className="bg-neutral-50 rounded-2xl p-6 border border-neutral-200">
                 <div className="space-y-6">
                   <div>
-                    <div className="flex justify-between text-sm font-semibold mb-2 text-slate-700">
+                    <div className="flex justify-between text-sm font-semibold mb-2 text-neutral-700">
                       <span>Clareza da Proposta</span>
                       <span>{result.bioAnalysis.clarity}/100</span>
                     </div>
-                    <div className="h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                    <div className="h-2.5 bg-neutral-200 rounded-full overflow-hidden">
                       <motion.div 
                         initial={{ width: 0 }}
                         animate={{ width: `${result.bioAnalysis.clarity}%` }}
@@ -442,11 +487,11 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
                     </div>
                   </div>
                   <div>
-                    <div className="flex justify-between text-sm font-semibold mb-2 text-slate-700">
+                    <div className="flex justify-between text-sm font-semibold mb-2 text-neutral-700">
                       <span>Otimização para Conversão  </span>
                       <span>{result.bioAnalysis.cro}/100</span>
                     </div>
-                    <div className="h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                    <div className="h-2.5 bg-neutral-200 rounded-full overflow-hidden">
                       <motion.div 
                         initial={{ width: 0 }}
                         animate={{ width: `${result.bioAnalysis.cro}%` }}
@@ -456,21 +501,21 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
                     </div>
                   </div>
                   <div className="pt-2">
-                    <span className="text-sm text-slate-500 block mb-2 font-medium">Tom de Voz Identificado</span>
-                    <span className="inline-block px-4 py-1.5 bg-white border border-slate-200 rounded-full text-sm font-semibold text-slate-700 shadow-sm">
+                    <span className="text-sm text-neutral-500 block mb-2 font-medium">Tom de Voz Identificado</span>
+                    <span className="inline-block px-4 py-1.5 bg-white border border-neutral-200 rounded-full text-sm font-semibold text-neutral-700 shadow-sm">
                       {result.bioAnalysis.tone}
                     </span>
                   </div>
                 </div>
               </div>
-              <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
-                <h4 className="font-semibold text-slate-800 mb-4 flex items-center gap-2">
+              <div className="bg-neutral-50 rounded-2xl p-6 border border-neutral-200">
+                <h4 className="font-semibold text-neutral-800 mb-4 flex items-center gap-2">
                     <TrendingUp size={18} className="text-capim-600" />
                     Sugestões de Melhoria
                 </h4>
                 <ul className="space-y-3">
                   {result.bioAnalysis.suggestions?.map((sug, i) => (
-                    <li key={i} className="flex gap-3 text-sm text-slate-600 items-start">
+                    <li key={i} className="flex gap-3 text-sm text-neutral-600 items-start">
                       <span className="text-capim-500 font-bold mt-0.5">•</span>
                       <span className="leading-relaxed">{sug}</span>
                     </li>
@@ -486,7 +531,7 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
           <CollapsibleSection
             title="Análise Visual dos Últimos Posts"
             icon={Grid}
-            className="bg-slate-50/30"
+            className="bg-neutral-50/30"
             forceOpen={isGeneratingPdf}
           >
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -496,9 +541,9 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: idx * 0.1 + 0.3 }}
-                    className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 flex flex-col hover:shadow-md transition-shadow"
+                    className="bg-white rounded-2xl overflow-hidden shadow-sm border border-neutral-200 flex flex-col hover:shadow-md transition-shadow"
                 >
-                  <div className="aspect-square relative bg-slate-100 group">
+                  <div className="aspect-square relative bg-neutral-100 group">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={post.imageUrl} alt={`Post ${idx + 1}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 text-white">
@@ -509,11 +554,11 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
                     </div>
                   </div>
                   <div className="p-5 flex-1 flex flex-col">
-                    <div className="mb-3 pb-3 border-b border-slate-100">
-                        <p className="text-xs text-slate-500 line-clamp-2 italic leading-relaxed">"{post.caption}"</p>
+                    <div className="mb-3 pb-3 border-b border-neutral-100">
+                        <p className="text-xs text-neutral-500 line-clamp-2 italic leading-relaxed">"{post.caption}"</p>
                     </div>
                     <div className="flex-1">
-                        <p className="text-sm text-slate-700 leading-relaxed font-medium">
+                        <p className="text-sm text-neutral-700 leading-relaxed font-medium">
                             <span className="text-capim-600 font-bold mr-1">Análise IA:</span>
                             {post.analysis}
                         </p>
@@ -525,10 +570,10 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
           </CollapsibleSection>
         )}
 
-        <div className="p-6 bg-slate-50 border-t border-slate-200/60 flex justify-center">
+        <div className="p-6 bg-neutral-50 border-t border-neutral-200/60 flex justify-center">
           <button
             onClick={onReset}
-            className="flex items-center gap-2 px-8 py-3 bg-white border border-slate-300 text-slate-800 font-semibold rounded-2xl hover:bg-slate-50 hover:border-capim-400 hover:text-capim-600 transition-all shadow-sm"
+            className="flex items-center gap-2 px-8 py-3 bg-white border border-neutral-300 text-neutral-800 font-semibold rounded-2xl hover:bg-neutral-50 hover:border-capim-400 hover:text-capim-600 transition-all shadow-sm"
           >
             <RefreshCcw size={18} />
             Nova Análise

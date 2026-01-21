@@ -39,7 +39,7 @@ export default function ShareModal({ isOpen, onClose, onSend, isSending }: Share
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
+            className="absolute inset-0 bg-neutral-900/60 backdrop-blur-sm"
           />
           
           <motion.div
@@ -71,16 +71,16 @@ export default function ShareModal({ isOpen, onClose, onSend, isSending }: Share
             <div className="p-6">
               {sent ? (
                 <div className="flex flex-col items-center justify-center py-8 text-center animate-in fade-in zoom-in duration-300">
-                  <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-4">
-                    <CheckCircle className="text-emerald-600" size={32} />
+                  <div className="w-16 h-16 bg-lime-100 rounded-full flex items-center justify-center mb-4">
+                    <CheckCircle className="text-lime-600" size={32} />
                   </div>
-                  <h4 className="text-xl font-bold text-slate-900 mb-2">E-mail enviado!</h4>
-                  <p className="text-slate-500">Verifique sua caixa de entrada em alguns instantes.</p>
+                  <h4 className="text-xl font-bold text-neutral-900 mb-2">E-mail enviado!</h4>
+                  <p className="text-neutral-500">Verifique sua caixa de entrada em alguns instantes.</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1.5">
+                    <label htmlFor="email" className="block text-sm font-medium text-neutral-700 mb-1.5">
                       Seu melhor e-mail
                     </label>
                     <div className="relative">
@@ -91,16 +91,16 @@ export default function ShareModal({ isOpen, onClose, onSend, isSending }: Share
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="exemplo@email.com"
-                        className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-capim-500 focus:border-transparent outline-none transition-all"
+                        className="w-full pl-10 pr-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-capim-500 focus:border-transparent outline-none transition-all"
                       />
-                      <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                      <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
                     </div>
                   </div>
 
-                  <div className="bg-slate-50 rounded-xl p-4 border border-slate-200 flex items-start gap-3">
+                  <div className="bg-neutral-50 rounded-xl p-4 border border-neutral-200 flex items-start gap-3">
                     <FileText className="text-capim-600 shrink-0 mt-0.5" size={20} />
-                    <div className="text-xs text-slate-600">
-                      <p className="font-semibold text-slate-800 mb-0.5">O que será enviado?</p>
+                    <div className="text-xs text-neutral-600">
+                      <p className="font-semibold text-neutral-800 mb-0.5">O que será enviado?</p>
                       <p>Um arquivo PDF contendo a análise completa do perfil, incluindo pontuações, gráficos e dicas de melhoria.</p>
                     </div>
                   </div>

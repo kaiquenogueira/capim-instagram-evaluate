@@ -12,9 +12,9 @@ body {
 }
 
 body {
-  color: #0f172a;
+  color: #201F26;
   background:
-    radial-gradient(1200px 600px at 80% 10%, rgba(50, 32, 95, 0.08), rgba(50, 32, 95, 0) 60%),
-    radial-gradient(1000px 500px at 10% 80%, rgba(139, 92, 246, 0.08), rgba(139, 92, 246, 0) 55%),
-    #ffffff;
+    radial-gradient(1200px 600px at 80% 10%, rgba(58, 38, 102, 0.08), rgba(58, 38, 102, 0) 60%),
+    radial-gradient(1000px 500px at 10% 80%, rgba(89, 57, 158, 0.08), rgba(89, 57, 158, 0) 55%),
+    #F5F5FA;
 }
