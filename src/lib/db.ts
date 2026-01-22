@@ -10,6 +10,10 @@ export interface StoredProfile {
   posts: number;
   overallScore: number;
   criteria?: Criteria;
+  bioScores?: {
+    clarity: number;
+    cro: number;
+  };
   timestamp: string;
 }
 
@@ -35,7 +39,7 @@ export async function saveProfile(profile: StoredProfile) {
   await fs.writeFile(DB_PATH, JSON.stringify(profiles, null, 2));
 }
 
-export async function getRankingStats(followers: number, posts: number, overallScore: number) {
+export async function getRankingStats(followers: number, posts: number, overallScore: number, bioScores?: { clarity: number, cro: number }) {
   const profiles = await getProfiles();
   if (profiles.length === 0) {
     return null;
@@ -55,6 +59,28 @@ export async function getRankingStats(followers: number, posts: number, overallS
   const avgPosts = Math.round(profiles.reduce((acc, p) => acc + p.posts, 0) / profiles.length);
   const avgOverallScore = Math.round(profiles.reduce((acc, p) => acc + p.overallScore, 0) / profiles.length);
 
+  let bioRanking = undefined;
+  if (bioScores) {
+    const profilesWithBio = profiles.filter(p => p.bioScores);
+    if (profilesWithBio.length > 0) {
+      const avgClarity = Math.round(profilesWithBio.reduce((acc, p) => acc + (p.bioScores?.clarity || 0), 0) / profilesWithBio.length);
+      const avgCro = Math.round(profilesWithBio.reduce((acc, p) => acc + (p.bioScores?.cro || 0), 0) / profilesWithBio.length);
+      
+      bioRanking = {
+        clarity: {
+          value: bioScores.clarity,
+          average: avgClarity,
+          isAboveAverage: bioScores.clarity >= avgClarity
+        },
+        cro: {
+          value: bioScores.cro,
+          average: avgCro,
+          isAboveAverage: bioScores.cro >= avgCro
+        }
+      };
+    }
+  }
+
   return {
     followersPercentile: followerPercentile,
     postsPercentile: postPercentile,
@@ -62,7 +88,8 @@ export async function getRankingStats(followers: number, posts: number, overallS
     avgFollowers,
     avgPosts,
     avgOverallScore,
-    totalProfiles: profiles.length
+    totalProfiles: profiles.length,
+    bioRanking
   };
 }
 

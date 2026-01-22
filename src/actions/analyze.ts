@@ -246,29 +246,6 @@ export async function analyzeProfile(handle: string): Promise<AnalysisResult> {
       data.tips = ["Sem dicas disponíveis no momento."];
     }
 
-    // Save to local DB for future ranking
-    if (data.stats && data.detailedMetrics) {
-      await saveProfile({
-        handle: data.handle,
-        followers: data.stats.followers,
-        posts: data.stats.posts,
-        overallScore: data.detailedMetrics.overallScore,
-        criteria: data.detailedMetrics.criteria,
-        timestamp: new Date().toISOString()
-      }).catch(err => console.error("Failed to save profile to DB:", err));
-
-      // Get ranking stats including the current profile
-      const rankingStats = await getRankingStats(
-        data.stats.followers, 
-        data.stats.posts, 
-        data.detailedMetrics.overallScore
-      );
-      
-      if (rankingStats) {
-        data.ranking = rankingStats;
-      }
-    }
-
     // Garantir fallback para bioAnalysis se a IA alucinar e não mandar
     if (!data.bioAnalysis) {
         data.bioAnalysis = {
@@ -279,6 +256,37 @@ export async function analyzeProfile(handle: string): Promise<AnalysisResult> {
         };
     } else if (!data.bioAnalysis.suggestions || !Array.isArray(data.bioAnalysis.suggestions)) {
         data.bioAnalysis.suggestions = ["Sem sugestões disponíveis."];
+    }
+
+    // Save to local DB for future ranking
+    if (data.stats && data.detailedMetrics) {
+      await saveProfile({
+        handle: data.handle,
+        followers: data.stats.followers,
+        posts: data.stats.posts,
+        overallScore: data.detailedMetrics.overallScore,
+        criteria: data.detailedMetrics.criteria,
+        bioScores: {
+            clarity: data.bioAnalysis.clarity,
+            cro: data.bioAnalysis.cro
+        },
+        timestamp: new Date().toISOString()
+      }).catch(err => console.error("Failed to save profile to DB:", err));
+
+      // Get ranking stats including the current profile
+      const rankingStats = await getRankingStats(
+        data.stats.followers, 
+        data.stats.posts, 
+        data.detailedMetrics.overallScore,
+        {
+            clarity: data.bioAnalysis.clarity,
+            cro: data.bioAnalysis.cro
+        }
+      );
+      
+      if (rankingStats) {
+        data.ranking = rankingStats;
+      }
     }
 
     if (!data.detailedMetrics) {

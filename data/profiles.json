@@ -8,10 +8,20 @@
   },
   {
     "handle": "odontoalto",
-    "followers": 2677,
-    "posts": 304,
-    "overallScore": 75,
-    "timestamp": "2026-01-21T13:18:48.549Z"
+    "followers": 2681,
+    "posts": 305,
+    "overallScore": 79,
+    "criteria": {
+      "frequency": 90,
+      "ctaAndLinks": 95,
+      "positioningClarity": 90,
+      "socialProof": 85
+    },
+    "bioScores": {
+      "clarity": 90,
+      "cro": 85
+    },
+    "timestamp": "2026-01-22T20:42:51.228Z"
   },
   {
     "handle": "odontomarcelamendes",
@@ -64,15 +74,15 @@
   },
   {
     "handle": "capim.br",
-    "followers": 21046,
+    "followers": 21075,
     "posts": 246,
-    "overallScore": 75,
+    "overallScore": 71,
     "criteria": {
-      "frequency": 65,
+      "frequency": 70,
       "ctaAndLinks": 95,
-      "positioningClarity": 98,
-      "socialProof": 85
+      "positioningClarity": 95,
+      "socialProof": 90
     },
-    "timestamp": "2026-01-21T18:47:29.069Z"
+    "timestamp": "2026-01-22T19:56:06.761Z"
   }
 ]

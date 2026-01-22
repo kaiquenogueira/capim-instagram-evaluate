@@ -22,6 +22,18 @@ export type AnalysisResult = {
     avgPosts: number;
     avgOverallScore: number;
     totalProfiles: number;
+    bioRanking?: {
+      clarity: {
+        value: number;
+        average: number;
+        isAboveAverage: boolean;
+      };
+      cro: {
+        value: number;
+        average: number;
+        isAboveAverage: boolean;
+      };
+    };
   };
   metrics: {
     quality: number;
