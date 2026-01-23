@@ -57,6 +57,15 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
   const [activeMetricId, setActiveMetricId] = useState<string>('quality');
 
   const getMetricDescription = (id: string, score: number) => {
+    // 1. Tentar usar explicação dinâmica da IA (se disponível)
+    if (result.metricExplanations) {
+      const key = id as keyof typeof result.metricExplanations;
+      if (result.metricExplanations[key]) {
+        return result.metricExplanations[key];
+      }
+    }
+
+    // 2. Fallback para descrições estáticas
     if (score >= 80) {
       switch (id) {
         case 'quality':

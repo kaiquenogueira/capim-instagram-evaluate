@@ -41,6 +41,12 @@ export type AnalysisResult = {
     branding: number;
     interaction: number;
   };
+  metricExplanations?: {
+    quality: string;
+    consistency: string;
+    branding: string;
+    interaction: string;
+  };
   detailedMetrics?: {
     overallScore: number;
     criteria: Criteria;

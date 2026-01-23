@@ -27,16 +27,27 @@ export async function getProfiles(): Promise<StoredProfile[]> {
 }
 
 export async function saveProfile(profile: StoredProfile) {
-  const profiles = await getProfiles();
-  const existingIndex = profiles.findIndex(p => p.handle === profile.handle);
-  
-  if (existingIndex >= 0) {
-    profiles[existingIndex] = profile;
-  } else {
-    profiles.push(profile);
+  try {
+    const profiles = await getProfiles();
+    const existingIndex = profiles.findIndex(p => p.handle === profile.handle);
+    
+    if (existingIndex >= 0) {
+      profiles[existingIndex] = profile;
+    } else {
+      profiles.push(profile);
+    }
+    
+    await fs.writeFile(DB_PATH, JSON.stringify(profiles, null, 2));
+    return true;
+  } catch (error: any) {
+    // Ignore read-only file system errors in production (Vercel)
+    if (error.code === 'EROFS' || error.errno === -30) {
+      console.warn('Production environment detected: Skipping local file write (read-only).');
+      return false;
+    }
+    // Re-throw other errors
+    throw error;
   }
-  
-  await fs.writeFile(DB_PATH, JSON.stringify(profiles, null, 2));
 }
 
 export async function getRankingStats(followers: number, posts: number, overallScore: number, bioScores?: { clarity: number, cro: number }) {

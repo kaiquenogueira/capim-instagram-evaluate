@@ -108,8 +108,14 @@ export async function analyzeProfile(handle: string): Promise<AnalysisResult> {
       "metrics": {
         "quality": (nota 0-100 baseada na qualidade percebida),
         "consistency": (nota 0-100 baseada na frequência de posts),
-        "branding": (nota 0-100 baseada na força da marca/identidade na bio e nome),
+        "branding": (nota 0-100 baseada na força da marca/identidade na bio e nome para o nicho de odontologia),
         "interaction": (nota 0-100 baseada no engajamento provável)
+      },
+      "metricExplanations": {
+        "quality": "Explique o PORQUÊ desta nota em 1 frase curta (max 150 chars), citando elementos visuais específicos observados (ex: 'Boas fotos mas falta humanização').",
+        "consistency": "Explique o PORQUÊ desta nota em 1 frase curta (max 150 chars), citando a frequência observada.",
+        "branding": "Explique o PORQUÊ desta nota em 1 frase curta (max 150 chars), citando clareza da bio e identidade.",
+        "interaction": "Explique o PORQUÊ desta nota em 1 frase curta (max 150 chars), citando uso de CTAs e links."
       },
       "detailedMetrics": {
         "overallScore": (nota 0-100: nota geral do perfil),
@@ -235,6 +241,16 @@ export async function analyzeProfile(handle: string): Promise<AnalysisResult> {
         consistency: 0,
         branding: 0,
         interaction: 0
+      };
+    }
+
+    if (!data.metricExplanations) {
+      // Fallback padrão se a IA não retornar as explicações
+      data.metricExplanations = {
+        quality: "Análise detalhada indisponível.",
+        consistency: "Análise detalhada indisponível.",
+        branding: "Análise detalhada indisponível.",
+        interaction: "Análise detalhada indisponível."
       };
     }
 

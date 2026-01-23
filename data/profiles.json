@@ -67,10 +67,20 @@
   },
   {
     "handle": "dra.marcia.sampaio",
-    "followers": 2231,
+    "followers": 2224,
     "posts": 87,
-    "overallScore": 71,
-    "timestamp": "2026-01-16T18:23:34.328Z"
+    "overallScore": 65,
+    "criteria": {
+      "frequency": 40,
+      "ctaAndLinks": 65,
+      "positioningClarity": 75,
+      "socialProof": 30
+    },
+    "bioScores": {
+      "clarity": 90,
+      "cro": 65
+    },
+    "timestamp": "2026-01-23T18:35:21.705Z"
   },
   {
     "handle": "capim.br",
@@ -84,5 +94,22 @@
       "socialProof": 90
     },
     "timestamp": "2026-01-22T19:56:06.761Z"
+  },
+  {
+    "handle": "andrepatier",
+    "followers": 4964,
+    "posts": 323,
+    "overallScore": 55,
+    "criteria": {
+      "frequency": 10,
+      "ctaAndLinks": 90,
+      "positioningClarity": 90,
+      "socialProof": 60
+    },
+    "bioScores": {
+      "clarity": 90,
+      "cro": 85
+    },
+    "timestamp": "2026-01-23T18:41:14.517Z"
   }
 ]
