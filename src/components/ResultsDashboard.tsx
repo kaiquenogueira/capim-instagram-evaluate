@@ -748,7 +748,7 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
                 className="flex items-center gap-2 px-8 py-3 bg-white border border-neutral-300 text-neutral-800 font-semibold rounded-2xl hover:bg-neutral-50 hover:border-capim-400 hover:text-capim-600 transition-all shadow-sm"
               >
                 <RefreshCcw size={18} />
-                Nova Análise
+                Fechar Análise
               </button>
 
               <div className="flex items-center gap-2 mt-2">
