@@ -1,12 +1,5 @@
 [
   {
-    "handle": "odontocompany",
-    "followers": 208187,
-    "posts": 1624,
-    "overallScore": 79,
-    "timestamp": "2026-01-16T17:52:42.041Z"
-  },
-  {
     "handle": "odontoalto",
     "followers": 2681,
     "posts": 305,
@@ -32,10 +25,20 @@
   },
   {
     "handle": "jotadentista",
-    "followers": 6518,
-    "posts": 544,
-    "overallScore": 80,
-    "timestamp": "2026-01-16T18:05:34.352Z"
+    "followers": 6824,
+    "posts": 547,
+    "overallScore": 90,
+    "criteria": {
+      "frequency": 95,
+      "ctaAndLinks": 90,
+      "positioningClarity": 98,
+      "socialProof": 95
+    },
+    "bioScores": {
+      "clarity": 98,
+      "cro": 90
+    },
+    "timestamp": "2026-01-26T19:10:10.181Z"
   },
   {
     "handle": "drigoralmeida",
@@ -103,23 +106,6 @@
     "timestamp": "2026-01-23T18:35:21.705Z"
   },
   {
-    "handle": "capim.br",
-    "followers": 21147,
-    "posts": 250,
-    "overallScore": 68,
-    "criteria": {
-      "frequency": 80,
-      "ctaAndLinks": 90,
-      "positioningClarity": 95,
-      "socialProof": 70
-    },
-    "bioScores": {
-      "clarity": 100,
-      "cro": 85
-    },
-    "timestamp": "2026-01-26T17:12:30.994Z"
-  },
-  {
     "handle": "andrepatier",
     "followers": 4964,
     "posts": 323,
@@ -135,5 +121,413 @@
       "cro": 85
     },
     "timestamp": "2026-01-23T18:41:14.517Z"
+  },
+  {
+    "handle": "dra.isabelaamaciel",
+    "followers": 1639,
+    "posts": 20,
+    "overallScore": 75,
+    "criteria": {
+      "frequency": 80,
+      "ctaAndLinks": 90,
+      "positioningClarity": 95,
+      "socialProof": 40
+    },
+    "bioScores": {
+      "clarity": 95,
+      "cro": 90
+    },
+    "timestamp": "2026-01-26T21:03:25.247Z"
+  },
+  {
+    "handle": "drajessicasg",
+    "followers": 2538,
+    "posts": 514,
+    "overallScore": 79,
+    "criteria": {
+      "frequency": 90,
+      "ctaAndLinks": 90,
+      "positioningClarity": 85,
+      "socialProof": 55
+    },
+    "bioScores": {
+      "clarity": 90,
+      "cro": 85
+    },
+    "timestamp": "2026-01-26T21:05:58.747Z"
+  },
+  {
+    "handle": "clinicaodontologicasante",
+    "followers": 9720,
+    "posts": 1833,
+    "overallScore": 85,
+    "criteria": {
+      "frequency": 95,
+      "ctaAndLinks": 80,
+      "positioningClarity": 90,
+      "socialProof": 95
+    },
+    "bioScores": {
+      "clarity": 95,
+      "cro": 90
+    },
+    "timestamp": "2026-01-26T21:06:53.116Z"
+  },
+  {
+    "handle": "horiclinica",
+    "followers": 38388,
+    "posts": 1073,
+    "overallScore": 60,
+    "criteria": {
+      "frequency": 50,
+      "ctaAndLinks": 80,
+      "positioningClarity": 90,
+      "socialProof": 85
+    },
+    "bioScores": {
+      "clarity": 95,
+      "cro": 80
+    },
+    "timestamp": "2026-01-26T21:09:00.130Z"
+  },
+  {
+    "handle": "clinicanovajerusalem",
+    "followers": 30905,
+    "posts": 2227,
+    "overallScore": 65,
+    "criteria": {
+      "frequency": 90,
+      "ctaAndLinks": 90,
+      "positioningClarity": 95,
+      "socialProof": 60
+    },
+    "bioScores": {
+      "clarity": 90,
+      "cro": 90
+    },
+    "timestamp": "2026-01-26T21:09:48.418Z"
+  },
+  {
+    "handle": "clinicabestdoctors",
+    "followers": 7584,
+    "posts": 497,
+    "overallScore": 75,
+    "criteria": {
+      "frequency": 65,
+      "ctaAndLinks": 90,
+      "positioningClarity": 95,
+      "socialProof": 90
+    },
+    "bioScores": {
+      "clarity": 95,
+      "cro": 90
+    },
+    "timestamp": "2026-01-26T21:10:36.281Z"
+  },
+  {
+    "handle": "dradeboraponciano",
+    "followers": 2974,
+    "posts": 107,
+    "overallScore": 76,
+    "criteria": {
+      "frequency": 70,
+      "ctaAndLinks": 90,
+      "positioningClarity": 95,
+      "socialProof": 40
+    },
+    "bioScores": {
+      "clarity": 95,
+      "cro": 85
+    },
+    "timestamp": "2026-01-26T21:11:08.228Z"
+  },
+  {
+    "handle": "clinicabelavista",
+    "followers": 8514,
+    "posts": 1171,
+    "overallScore": 80,
+    "criteria": {
+      "frequency": 85,
+      "ctaAndLinks": 90,
+      "positioningClarity": 95,
+      "socialProof": 80
+    },
+    "bioScores": {
+      "clarity": 95,
+      "cro": 90
+    },
+    "timestamp": "2026-01-26T21:11:33.865Z"
+  },
+  {
+    "handle": "odonto_kurita",
+    "followers": 27639,
+    "posts": 659,
+    "overallScore": 81,
+    "criteria": {
+      "frequency": 75,
+      "ctaAndLinks": 90,
+      "positioningClarity": 95,
+      "socialProof": 88
+    },
+    "bioScores": {
+      "clarity": 95,
+      "cro": 90
+    },
+    "timestamp": "2026-01-26T21:12:18.339Z"
+  },
+  {
+    "handle": "martins_odonto",
+    "followers": 4103,
+    "posts": 49,
+    "overallScore": 57,
+    "criteria": {
+      "frequency": 25,
+      "ctaAndLinks": 90,
+      "positioningClarity": 85,
+      "socialProof": 55
+    },
+    "bioScores": {
+      "clarity": 80,
+      "cro": 80
+    },
+    "timestamp": "2026-01-26T21:12:50.800Z"
+  },
+  {
+    "handle": "sylviosimioni",
+    "followers": 418952,
+    "posts": 934,
+    "overallScore": 74,
+    "criteria": {
+      "frequency": 80,
+      "ctaAndLinks": 90,
+      "positioningClarity": 95,
+      "socialProof": 85
+    },
+    "bioScores": {
+      "clarity": 95,
+      "cro": 90
+    },
+    "timestamp": "2026-01-26T21:13:22.858Z"
+  },
+  {
+    "handle": "raphaweslley",
+    "followers": 161019,
+    "posts": 1440,
+    "overallScore": 80,
+    "criteria": {
+      "frequency": 90,
+      "ctaAndLinks": 95,
+      "positioningClarity": 95,
+      "socialProof": 75
+    },
+    "bioScores": {
+      "clarity": 95,
+      "cro": 90
+    },
+    "timestamp": "2026-01-26T21:21:50.534Z"
+  },
+  {
+    "handle": "rinovack",
+    "followers": 511184,
+    "posts": 2932,
+    "overallScore": 80,
+    "criteria": {
+      "frequency": 90,
+      "ctaAndLinks": 85,
+      "positioningClarity": 95,
+      "socialProof": 80
+    },
+    "bioScores": {
+      "clarity": 90,
+      "cro": 85
+    },
+    "timestamp": "2026-01-26T21:25:39.857Z"
+  },
+  {
+    "handle": "clinicanadal.odontologia",
+    "followers": 2799,
+    "posts": 545,
+    "overallScore": 65,
+    "criteria": {
+      "frequency": 80,
+      "ctaAndLinks": 90,
+      "positioningClarity": 95,
+      "socialProof": 75
+    },
+    "bioScores": {
+      "clarity": 95,
+      "cro": 90
+    },
+    "timestamp": "2026-01-26T21:27:22.737Z"
+  },
+  {
+    "handle": "arbexfilho",
+    "followers": 302158,
+    "posts": 2661,
+    "overallScore": 94,
+    "criteria": {
+      "frequency": 90,
+      "ctaAndLinks": 95,
+      "positioningClarity": 98,
+      "socialProof": 85
+    },
+    "bioScores": {
+      "clarity": 95,
+      "cro": 90
+    },
+    "timestamp": "2026-01-26T21:28:32.487Z"
+  },
+  {
+    "handle": "drfabricionogueira",
+    "followers": 12644,
+    "posts": 1417,
+    "overallScore": 70,
+    "criteria": {
+      "frequency": 55,
+      "ctaAndLinks": 90,
+      "positioningClarity": 90,
+      "socialProof": 70
+    },
+    "bioScores": {
+      "clarity": 95,
+      "cro": 95
+    },
+    "timestamp": "2026-01-26T21:31:05.278Z"
+  },
+  {
+    "handle": "clinicasorrisinhos",
+    "followers": 14901,
+    "posts": 1369,
+    "overallScore": 76,
+    "criteria": {
+      "frequency": 90,
+      "ctaAndLinks": 85,
+      "positioningClarity": 95,
+      "socialProof": 70
+    },
+    "bioScores": {
+      "clarity": 95,
+      "cro": 80
+    },
+    "timestamp": "2026-01-26T21:31:58.263Z"
+  },
+  {
+    "handle": "odontospecialclinicas",
+    "followers": 5006,
+    "posts": 1900,
+    "overallScore": 75,
+    "criteria": {
+      "frequency": 85,
+      "ctaAndLinks": 80,
+      "positioningClarity": 95,
+      "socialProof": 90
+    },
+    "bioScores": {
+      "clarity": 95,
+      "cro": 80
+    },
+    "timestamp": "2026-01-26T21:32:51.014Z"
+  },
+  {
+    "handle": "clinicadentalup",
+    "followers": 12508,
+    "posts": 229,
+    "overallScore": 58,
+    "criteria": {
+      "frequency": 40,
+      "ctaAndLinks": 80,
+      "positioningClarity": 90,
+      "socialProof": 50
+    },
+    "bioScores": {
+      "clarity": 95,
+      "cro": 75
+    },
+    "timestamp": "2026-01-26T21:33:28.922Z"
+  },
+  {
+    "handle": "clinodontooficial",
+    "followers": 2393,
+    "posts": 393,
+    "overallScore": 75,
+    "criteria": {
+      "frequency": 65,
+      "ctaAndLinks": 90,
+      "positioningClarity": 80,
+      "socialProof": 85
+    },
+    "bioScores": {
+      "clarity": 70,
+      "cro": 95
+    },
+    "timestamp": "2026-01-26T21:34:21.211Z"
+  },
+  {
+    "handle": "dralucianaxavier",
+    "followers": 4028,
+    "posts": 654,
+    "overallScore": 63,
+    "criteria": {
+      "frequency": 60,
+      "ctaAndLinks": 75,
+      "positioningClarity": 90,
+      "socialProof": 60
+    },
+    "bioScores": {
+      "clarity": 90,
+      "cro": 80
+    },
+    "timestamp": "2026-01-26T21:34:45.366Z"
+  },
+  {
+    "handle": "clinicadents",
+    "followers": 19250,
+    "posts": 1302,
+    "overallScore": 69,
+    "criteria": {
+      "frequency": 60,
+      "ctaAndLinks": 90,
+      "positioningClarity": 95,
+      "socialProof": 55
+    },
+    "bioScores": {
+      "clarity": 95,
+      "cro": 85
+    },
+    "timestamp": "2026-01-26T21:35:38.355Z"
+  },
+  {
+    "handle": "wedercarneirooficial",
+    "followers": 21956,
+    "posts": 72,
+    "overallScore": 70,
+    "criteria": {
+      "frequency": 60,
+      "ctaAndLinks": 85,
+      "positioningClarity": 95,
+      "socialProof": 90
+    },
+    "bioScores": {
+      "clarity": 95,
+      "cro": 90
+    },
+    "timestamp": "2026-01-26T21:37:20.990Z"
+  },
+  {
+    "handle": "dentistaconselheira",
+    "followers": 31033,
+    "posts": 319,
+    "overallScore": 73,
+    "criteria": {
+      "frequency": 50,
+      "ctaAndLinks": 95,
+      "positioningClarity": 90,
+      "socialProof": 75
+    },
+    "bioScores": {
+      "clarity": 95,
+      "cro": 95
+    },
+    "timestamp": "2026-01-26T21:37:44.717Z"
   }
 ]

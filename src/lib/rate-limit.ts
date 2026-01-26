@@ -8,7 +8,7 @@ export interface RateLimitConfig {
   max: number;
 }
 
-export function rateLimit(ip: string, config: RateLimitConfig = { windowMs: 60 * 60 * 1000, max: 15 }) {
+export function rateLimit(ip: string, config: RateLimitConfig = { windowMs: 60 * 60 * 1000, max: 25 }) {
   const now = Date.now();
   const record = rateLimitStore.get(ip);
 
