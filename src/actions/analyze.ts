@@ -4,6 +4,8 @@ import axios from 'axios';
 import { GoogleGenAI } from '@google/genai';
 import { AnalysisResult } from '@/types';
 import { getRankingContext, getRankingStats, saveProfile } from '@/lib/db';
+import { headers } from 'next/headers';
+import { rateLimit } from '@/lib/rate-limit';
 
 async function fetchImageAsBase64(url: string): Promise<{ data: string, mimeType: string } | null> {
   try {
@@ -30,6 +32,15 @@ async function fetchImageAsBase64(url: string): Promise<{ data: string, mimeType
 }
 
 export async function analyzeProfile(handle: string): Promise<AnalysisResult> {
+  // Rate Limit Check
+  const headersList = await headers();
+  const ip = headersList.get('x-forwarded-for') || 'unknown';
+  const limit = rateLimit(ip);
+  
+  if (!limit.success) {
+    throw new Error('Limite de análises atingido. Por favor, tente novamente em 1 hora.');
+  }
+
   const apiKey = process.env.GEMINI_API_KEY;
   const scrapeKey = process.env.space_creators_api_key;
 

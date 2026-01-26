@@ -1,16 +1,23 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Instagram, ArrowRight } from 'lucide-react';
 
 interface ScannerFormProps {
   onScan: (handle: string) => void;
+  errorMessage?: string;
 }
 
-export default function ScannerForm({ onScan }: ScannerFormProps) {
+export default function ScannerForm({ onScan, errorMessage }: ScannerFormProps) {
   const [handle, setHandle] = useState('');
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (errorMessage) {
+      setError(errorMessage);
+    }
+  }, [errorMessage]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

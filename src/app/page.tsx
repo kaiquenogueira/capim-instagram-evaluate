@@ -11,10 +11,17 @@ export default function Home() {
   const [step, setStep] = useState<'idle' | 'scanning' | 'results'>('idle');
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [handle, setHandle] = useState<string>('');
+  const [scanError, setScanError] = useState<string>('');
 
   const handleStartScan = async (handle: string) => {
     setHandle(handle);
+    setScanError('');
     setStep('scanning');
+  };
+
+  const handleScanError = (message: string) => {
+    setScanError(message);
+    setStep('idle');
   };
 
   const handleScanComplete = (data: AnalysisResult) => {
@@ -56,11 +63,12 @@ export default function Home() {
         <div className="w-full">
           <AnimatePresence mode="wait">
             {step === 'idle' && (
-              <ScannerForm onScan={handleStartScan} key="scanner" />
+              <ScannerForm onScan={handleStartScan} errorMessage={scanError} key="scanner" />
             )}
             {step === 'scanning' && (
               <LoadingOverlay 
                 onComplete={handleScanComplete} 
+                onError={handleScanError}
                 key="loader" 
                 handle={handle}
               />

@@ -104,20 +104,20 @@
   },
   {
     "handle": "capim.br",
-    "followers": 21148,
+    "followers": 21147,
     "posts": 250,
-    "overallScore": 76,
+    "overallScore": 68,
     "criteria": {
-      "frequency": 90,
-      "ctaAndLinks": 95,
-      "positioningClarity": 98,
-      "socialProof": 85
+      "frequency": 80,
+      "ctaAndLinks": 90,
+      "positioningClarity": 95,
+      "socialProof": 70
     },
     "bioScores": {
-      "clarity": 98,
-      "cro": 95
+      "clarity": 100,
+      "cro": 85
     },
-    "timestamp": "2026-01-26T15:11:09.577Z"
+    "timestamp": "2026-01-26T17:12:30.994Z"
   },
   {
     "handle": "andrepatier",

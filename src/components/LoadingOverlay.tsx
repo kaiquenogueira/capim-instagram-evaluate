@@ -8,6 +8,7 @@ import { AnalysisResult } from '@/types';
 
 interface LoadingOverlayProps {
   onComplete: (data: AnalysisResult) => void;
+  onError?: (message: string) => void;
   handle?: string;
 }
 
@@ -19,7 +20,7 @@ const steps = [
   { id: 5, text: "Gerando insights com IA...", icon: Sparkles },
 ];
 
-export default function LoadingOverlay({ onComplete, handle = "clinica" }: LoadingOverlayProps) {
+export default function LoadingOverlay({ onComplete, onError, handle = "clinica" }: LoadingOverlayProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [isAnalysisDone, setIsAnalysisDone] = useState(false);
   const [analysisData, setAnalysisData] = useState<AnalysisResult | null>(null);
@@ -32,7 +33,10 @@ export default function LoadingOverlay({ onComplete, handle = "clinica" }: Loadi
         setIsAnalysisDone(true);
       } catch (error) {
         console.error(error);
-        setIsAnalysisDone(true); 
+        setIsAnalysisDone(true);
+        if (onError) {
+          onError(error instanceof Error ? error.message : "Erro desconhecido ao analisar perfil.");
+        }
       }
     };
 
