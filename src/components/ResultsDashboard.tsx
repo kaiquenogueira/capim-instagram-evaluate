@@ -1,9 +1,10 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { RefreshCcw, Award, TrendingUp, Users, Grid, UserCheck, Heart, MessageCircle, Star, Sparkles, Repeat, Fingerprint, Send, CheckCircle, Smartphone, Lock, ChevronRight } from 'lucide-react';
+import { RefreshCcw, Award, TrendingUp, Users, Grid, UserCheck, Heart, MessageCircle, Star, Sparkles, Repeat, Fingerprint, Send, CheckCircle, Smartphone, Lock, ChevronRight, Clock } from 'lucide-react';
 import { AnalysisResult } from '@/types';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { sendWhatsAppWithAttachment } from '@/actions/sendWhatsApp';
@@ -55,6 +56,43 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
   const dashboardRef = useRef<HTMLDivElement>(null);
   const [isSending, setIsSending] = useState(false);
   const [activeMetricId, setActiveMetricId] = useState<string>('quality');
+
+  // Auto-close logic
+  const [showAutoClose, setShowAutoClose] = useState(false);
+  const [autoCloseTimer, setAutoCloseTimer] = useState(10);
+
+  useEffect(() => {
+    if (showAutoClose) return;
+
+    const timer = setTimeout(() => {
+      setShowAutoClose(true);
+    }, 35000); // 35 seconds
+
+    return () => clearTimeout(timer);
+  }, [showAutoClose]);
+
+  useEffect(() => {
+    if (!showAutoClose) {
+        setAutoCloseTimer(15); // reset timer when modal closes
+        return;
+    }
+
+    if (autoCloseTimer === 0) {
+      onReset();
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setAutoCloseTimer((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [showAutoClose, autoCloseTimer, onReset]);
+
+  const handleCancelAutoClose = () => {
+    setShowAutoClose(false);
+    // Timer restarts automatically because of the first useEffect dependency on showAutoClose
+  };
 
   const getMetricDescription = (id: string, score: number) => {
     // 1. Tentar usar explicação dinâmica da IA (se disponível)
@@ -237,6 +275,7 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
             const restrictedSection = clonedDoc.getElementById('restricted-section');
             if (restrictedSection) {
                 restrictedSection.style.filter = 'none';
+                restrictedSection.style.opacity = '1';
                 restrictedSection.style.pointerEvents = 'auto';
                 restrictedSection.style.userSelect = 'auto';
             }
@@ -750,6 +789,53 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
         </div>
 
       </div>
+      
+      {typeof document !== 'undefined' && createPortal(
+        <AnimatePresence>
+          {showAutoClose && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+            >
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                className="bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl border border-neutral-200"
+              >
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-16 h-16 bg-amber-50 rounded-full flex items-center justify-center mb-6">
+                    <Clock className="w-8 h-8 text-amber-500" />
+                  </div>
+                  
+                  <h3 className="text-xl font-bold text-neutral-900 mb-2">Fechar Relatório?</h3>
+                  <p className="text-neutral-600 mb-8 leading-relaxed">
+                    Por segurança, este relatório será fechado automaticamente em <span className="font-bold text-amber-600">{autoCloseTimer} segundos</span>.
+                  </p>
+
+                  <div className="flex flex-col w-full gap-3">
+                    <button
+                      onClick={handleCancelAutoClose}
+                      className="w-full py-3.5 px-4 bg-capim-600 text-white font-bold rounded-xl hover:bg-capim-700 transition-colors shadow-lg shadow-capim-600/20"
+                    >
+                      Manter aberto
+                    </button>
+                    <button
+                      onClick={onReset}
+                      className="w-full py-3.5 px-4 bg-neutral-100 text-neutral-600 font-bold rounded-xl hover:bg-neutral-200 transition-colors"
+                    >
+                      Fechar agora
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </motion.div>
   );
 }
