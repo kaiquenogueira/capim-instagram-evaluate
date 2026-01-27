@@ -89,12 +89,29 @@ export async function analyzeProfile(handle: string): Promise<AnalysisResult> {
           type: edge.node.__typename
         }));
       }
+
+      // Check for empty profile (no posts and empty bio)
+      const hasPosts = (user.edge_owner_to_timeline_media?.count || 0) > 0;
+      const hasBio = (user.biography && user.biography.trim().length > 0);
+
+      if (!hasPosts && !hasBio) {
+         throw new Error('não encontramos esse perfil. Verifique o nome');
+      }
+
+    } else {
+      throw new Error('não encontramos esse perfil. Verifique o nome');
     }
   } catch (error) {
     console.error('Falha ao acessar ScrapeCreators API:', error);
     if (axios.isAxiosError(error)) {
        console.error('Detalhes do erro:', error.response?.data);
     }
+    // Se o erro for o que lançamos acima, repassa
+    if (error instanceof Error && error.message === 'não encontramos esse perfil. Verifique o nome') {
+        throw error;
+    }
+    // Se houve erro na API (timeout, 500, etc), também consideramos como não encontrado para evitar alucinação
+    throw new Error('não encontramos esse perfil. Verifique o nome');
   }
 
   // --- AGENT 1: Análise do Perfil e Bio ---

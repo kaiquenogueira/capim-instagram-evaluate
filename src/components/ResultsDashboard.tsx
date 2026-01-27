@@ -430,8 +430,8 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
         </div>
 
         {/* 2. WhatsApp Section (Replaces Email Share) */}
-        <div className="p-6 md:p-8 border-b border-neutral-200/60 bg-neutral-50" data-html2canvas-ignore="true">
-           <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
+        <div className="p-4 md:px-8 md:py-6 border-b border-neutral-200/60 bg-neutral-50" data-html2canvas-ignore="true">
+           <div className="flex flex-col lg:flex-row items-center justify-between gap-6 bg-white p-4 md:p-4 rounded-2xl border border-neutral-200 shadow-sm">
               <div className="flex-1">
                  <h3 className="text-lg font-bold text-neutral-900 mb-2 flex items-center gap-2">
                     <MessageCircle className="text-green-600" size={24} />
@@ -441,7 +441,7 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
                     Digite seu número para receber o PDF completo com a análise detalhada.
                  </p>
               </div>
-              <div className="flex items-center gap-3 w-full md:w-auto">
+              <div className="flex items-center gap-3 w-full lg:w-auto">
                  {sentSuccess ? (
                     <div className="flex items-center gap-2 text-green-600 font-bold bg-green-50 px-4 py-3 rounded-xl border border-green-100">
                         <CheckCircle size={20} />
@@ -454,12 +454,12 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
                             value={phone}
                             onChange={handlePhoneChange}
                             placeholder="(11) 99999-9999"
-                            className="flex-1 md:w-48 px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-capim-500 focus:border-transparent outline-none transition-all text-neutral-900 font-medium placeholder:text-neutral-400"
+                            className="flex-1 lg:w-48 px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-capim-500 focus:border-transparent outline-none transition-all text-neutral-900 font-medium placeholder:text-neutral-400"
                         />
                         <button 
                             onClick={handleSendWhatsApp}
                             disabled={isSending || phone.length < 14}
-                            className="px-6 py-3 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2 shadow-sm hover:shadow-md"
+                            className="px-6 py-3 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2 shadow-sm hover:shadow-md whitespace-nowrap"
                         >
                             {isSending ? (
                                 <span className="flex items-center gap-2">
@@ -741,22 +741,6 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
                 </ul>
               </div>
             )}
-
-            <div className="p-8 bg-neutral-50 border-t border-neutral-200/60 flex flex-col items-center gap-6">
-              <button
-                onClick={onReset}
-                className="flex items-center gap-2 px-8 py-3 bg-white border border-neutral-300 text-neutral-800 font-semibold rounded-2xl hover:bg-neutral-50 hover:border-capim-400 hover:text-capim-600 transition-all shadow-sm"
-              >
-                <RefreshCcw size={18} />
-                Fechar Análise
-              </button>
-
-              <div className="flex items-center gap-2 mt-2">
-                <span className="text-xs font-medium text-neutral-400 uppercase tracking-wider">Powered by</span>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/assets/logo.svg" alt="Capim" className="h-5 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all" />
-              </div>
-            </div>
           </div>
 
           {!isUnlocked && (
@@ -786,6 +770,22 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
                  </div>
              </div>
           )}
+        </div>
+
+        <div className="p-8 bg-neutral-50 border-t border-neutral-200/60 flex flex-col items-center gap-6">
+          <button
+            onClick={onReset}
+            className="flex items-center gap-2 px-8 py-3 bg-white border border-neutral-300 text-neutral-800 font-semibold rounded-2xl hover:bg-neutral-50 hover:border-capim-400 hover:text-capim-600 transition-all shadow-sm"
+          >
+            <RefreshCcw size={18} />
+            Fechar Análise
+          </button>
+
+          <div className="flex items-center gap-2 mt-2">
+            <span className="text-xs font-medium text-neutral-400 uppercase tracking-wider">Powered by</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/assets/logo.svg" alt="Capim" className="h-5 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all" />
+          </div>
         </div>
 
       </div>

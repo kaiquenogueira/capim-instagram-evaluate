@@ -18,10 +18,20 @@
   },
   {
     "handle": "odontomarcelamendes",
-    "followers": 1931,
+    "followers": 1953,
     "posts": 96,
     "overallScore": 55,
-    "timestamp": "2026-01-16T17:59:43.467Z"
+    "criteria": {
+      "frequency": 40,
+      "ctaAndLinks": 20,
+      "positioningClarity": 75,
+      "socialProof": 45
+    },
+    "bioScores": {
+      "clarity": 90,
+      "cro": 30
+    },
+    "timestamp": "2026-01-27T20:06:09.786Z"
   },
   {
     "handle": "jotadentista",
@@ -44,15 +54,35 @@
     "handle": "drigoralmeida",
     "followers": 1,
     "posts": 0,
-    "overallScore": 2,
-    "timestamp": "2026-01-16T18:06:27.566Z"
+    "overallScore": 5,
+    "criteria": {
+      "frequency": 0,
+      "ctaAndLinks": 0,
+      "positioningClarity": 0,
+      "socialProof": 5
+    },
+    "bioScores": {
+      "clarity": 0,
+      "cro": 0
+    },
+    "timestamp": "2026-01-27T19:28:12.145Z"
   },
   {
     "handle": "digordealmeida",
     "followers": 17,
     "posts": 0,
-    "overallScore": 5,
-    "timestamp": "2026-01-16T18:07:22.654Z"
+    "overallScore": 3,
+    "criteria": {
+      "frequency": 0,
+      "ctaAndLinks": 0,
+      "positioningClarity": 0,
+      "socialProof": 0
+    },
+    "bioScores": {
+      "clarity": 0,
+      "cro": 0
+    },
+    "timestamp": "2026-01-27T19:38:05.085Z"
   },
   {
     "handle": "ferbaldassa",
@@ -529,5 +559,56 @@
       "cro": 95
     },
     "timestamp": "2026-01-26T21:37:44.717Z"
+  },
+  {
+    "handle": "capim.br",
+    "followers": 21176,
+    "posts": 250,
+    "overallScore": 70,
+    "criteria": {
+      "frequency": 55,
+      "ctaAndLinks": 95,
+      "positioningClarity": 95,
+      "socialProof": 85
+    },
+    "bioScores": {
+      "clarity": 95,
+      "cro": 90
+    },
+    "timestamp": "2026-01-27T20:02:42.732Z"
+  },
+  {
+    "handle": "paulobonavides",
+    "followers": 4629346,
+    "posts": 637,
+    "overallScore": 90,
+    "criteria": {
+      "frequency": 75,
+      "ctaAndLinks": 20,
+      "positioningClarity": 85,
+      "socialProof": 98
+    },
+    "bioScores": {
+      "clarity": 90,
+      "cro": 15
+    },
+    "timestamp": "2026-01-27T20:58:37.534Z"
+  },
+  {
+    "handle": "drabrunaconde",
+    "followers": 42134,
+    "posts": 1815,
+    "overallScore": 79,
+    "criteria": {
+      "frequency": 85,
+      "ctaAndLinks": 95,
+      "positioningClarity": 95,
+      "socialProof": 80
+    },
+    "bioScores": {
+      "clarity": 95,
+      "cro": 95
+    },
+    "timestamp": "2026-01-27T21:05:08.439Z"
   }
 ]

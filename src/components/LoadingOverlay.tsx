@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Scan, Database, Palette, Users, Sparkles } from 'lucide-react';
 import { analyzeProfile } from '@/actions/analyze';
 import { AnalysisResult } from '@/types';
@@ -20,10 +20,28 @@ const steps = [
   { id: 5, text: "Gerando insights com IA...", icon: Sparkles },
 ];
 
+const marketingPhrases = [
+  "Seus pacientes te chamam quando você já está atendendo? A Camila mantém a agenda andando!",
+  "Do post ao horário marcado: a Camila transforma interesse em consulta agendada!",
+  "Instagram forte traz mais pacientes. A Camila garante resposta rápida no WhatsApp e paciente na sua cadeira!",
+  "Não tem secretária? A Camila cuida do seu WhatsApp por você!",
+  "Sistema integrado: a Camila sabe sua agenda e preenche a ficha de seus pacientes!",
+  "Mais pacientes chamando, menos correria: a Camila agenda automaticamente.",
+  "Resposta rápida vira consulta marcada. A Camila ajuda você a não perder pacientes."
+];
+
 export default function LoadingOverlay({ onComplete, onError, handle = "clinica" }: LoadingOverlayProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [isAnalysisDone, setIsAnalysisDone] = useState(false);
   const [analysisData, setAnalysisData] = useState<AnalysisResult | null>(null);
+  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentPhraseIndex((prev) => (prev + 1) % marketingPhrases.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const performAnalysis = async () => {
@@ -73,6 +91,21 @@ export default function LoadingOverlay({ onComplete, onError, handle = "clinica"
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur-md">
       <div className="relative flex flex-col items-center">
         
+        <div className="mb-16 h-24 max-w-2xl px-6 text-center flex items-center justify-center">
+            <AnimatePresence mode="wait">
+                <motion.p
+                    key={currentPhraseIndex}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.5 }}
+                    className="text-neutral-600 font-semibold text-xl md:text-2xl leading-relaxed"
+                >
+                    {marketingPhrases[currentPhraseIndex]}
+                </motion.p>
+            </AnimatePresence>
+        </div>
+
         <div className="relative w-64 h-64 mb-8 flex items-center justify-center">
           <motion.div 
             animate={{ scale: [1, 1.1, 1], opacity: [0.5, 1, 0.5] }}
