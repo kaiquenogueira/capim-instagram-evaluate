@@ -50,10 +50,10 @@ export default function Home() {
               exit={{ opacity: 0, y: -20 }}
               className="text-center mb-10 md:mb-14"
             >
-              <div className="flex items-center justify-center gap-3 mb-5">                
-                  <img src="/assets/logo.svg" alt="Capim Tecnologia"  />                
+              <div className="flex items-center justify-center gap-3 mb-8">                
+                  <img src="/assets/logo.svg" alt="Capim Tecnologia" height={150} width={150} />                
               </div>
-              <p className="text-neutral-600 text-lg md:text-xl max-w-xl mx-auto font-medium">
+              <p className="text-neutral-650 text-xl md:text-xl max-w-xl mx-auto font-medium  ">
                 Avalie o perfil do Instagram da sua clínica.
               </p>
             </motion.div>
