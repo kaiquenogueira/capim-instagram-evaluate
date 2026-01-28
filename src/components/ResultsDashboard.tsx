@@ -514,7 +514,7 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
                         </div>
                         <div className="flex-1">
                             <p className="text-sm text-neutral-700 leading-relaxed font-medium">
-                                <span className="text-capim-600 font-bold mr-1">Análise IA:</span>
+                                <span className="text-capim-600 font-bold mr-1">Análise da Camila:</span>
                                 {post.analysis}
                             </p>
                         </div>
