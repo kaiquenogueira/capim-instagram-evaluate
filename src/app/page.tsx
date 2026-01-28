@@ -35,35 +35,32 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center text-neutral-900 relative overflow-hidden px-6 py-12">
+    <main className="min-h-screen flex flex-col items-center justify-center text-neutral-900 relative overflow-hidden px-6 py-4">
       <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-capim-400 via-capim-600 to-capim-800 z-50" />
       <div className="absolute -top-24 -right-24 w-[520px] h-[520px] bg-capim-100 rounded-full blur-3xl opacity-60" />
       <div className="absolute -bottom-28 -left-28 w-[520px] h-[520px] bg-neutral-100 rounded-full blur-3xl opacity-60" />
 
-      <div className="w-full max-w-md md:max-w-2xl lg:max-w-4xl z-10 flex flex-col items-center">
+      <div className="w-full max-w-md md:max-w-2xl lg:max-w-5xl z-10 flex flex-col items-center">
         
-        <AnimatePresence>
-          {step === 'idle' && (
-            <motion.div 
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="text-center mb-10 md:mb-14"
-            >
-              <div className="flex items-center justify-center gap-3 mb-8">                
-                  <img src="/assets/logo.svg" alt="Capim Tecnologia" height={150} width={150} />                
-              </div>
-              <p className="text-neutral-650 text-xl md:text-xl max-w-xl mx-auto font-medium  ">
-                Avalie o perfil do Instagram da sua clínica.
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
         <div className="w-full">
           <AnimatePresence mode="wait">
             {step === 'idle' && (
-              <ScannerForm onScan={handleStartScan} errorMessage={scanError} key="scanner" />
+              <motion.div 
+                key="idle"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="relative w-full flex items-center justify-center h-[95vh]"
+              >
+                <img 
+                  src="/assets/toten.png" 
+                  alt="Capim Tecnologia" 
+                  className="absolute z-0 w-full h-full object-contain pointer-events-none" 
+                />
+                <div className="relative z-10 w-full flex justify-center items-end h-full pb-8">
+                  <ScannerForm onScan={handleStartScan} errorMessage={scanError} />
+                </div>
+              </motion.div>
             )}
             {step === 'scanning' && (
               <LoadingOverlay 
