@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Instagram, ArrowRight } from 'lucide-react';
+import { Instagram, Sparkles } from 'lucide-react';
 
 interface ScannerFormProps {
   onScan: (handle: string) => void;
@@ -94,7 +94,7 @@ export default function ScannerForm({ onScan, errorMessage }: ScannerFormProps) 
             className="group w-full bg-capim-600 hover:bg-capim-700 text-white text-lg font-semibold py-4 px-6 rounded-2xl flex items-center justify-center gap-2 transition-all transform hover:scale-[1.01] active:scale-[0.99] shadow-lg shadow-capim-600/25"
           >
             <span>Iniciar Análise</span>
-            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+            <Sparkles size={20} className="group-hover:scale-110 transition-transform" />
           </button>
         </form>
 

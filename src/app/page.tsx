@@ -37,6 +37,21 @@ export default function Home() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center text-neutral-900 relative overflow-hidden px-6 py-4">
       <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-capim-400 via-capim-600 to-capim-800 z-50" />
+      
+      <AnimatePresence>
+        {step === 'idle' && (
+          <motion.img 
+            key="bg-image"
+            src="/assets/toten.png" 
+            alt="Background" 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none" 
+          />
+        )}
+      </AnimatePresence>
+
       <div className="absolute -top-24 -right-24 w-[520px] h-[520px] bg-capim-100 rounded-full blur-3xl opacity-60" />
       <div className="absolute -bottom-28 -left-28 w-[520px] h-[520px] bg-neutral-100 rounded-full blur-3xl opacity-60" />
 
@@ -52,13 +67,14 @@ export default function Home() {
                 exit={{ opacity: 0, y: -20 }}
                 className="relative w-full flex items-center justify-center h-[95vh]"
               >
-                <img 
-                  src="/assets/toten.png" 
-                  alt="Capim Tecnologia" 
-                  className="absolute z-0 w-full h-full object-contain pointer-events-none" 
-                />
-                <div className="relative z-10 w-full flex justify-center items-end h-full pb-8">
+                <div className="relative z-5 w-full flex flex-col justify-start items-center h-full pt-10">
                   <ScannerForm onScan={handleStartScan} errorMessage={scanError} />
+                  
+                  <div className="absolute bottom-20 text-center">
+                    <p className="text-4xl md:text-6xl text-capim-500 font-light drop-shadow-sm font-roboto">
+                      Descubra o <span className="font-bold">potencial</span> do seu <span className="font-bold">Instagram</span> com a <span className="font-bold">Camila!</span> 
+                    </p>
+                  </div>
                 </div>
               </motion.div>
             )}

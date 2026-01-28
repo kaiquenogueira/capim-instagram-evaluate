@@ -45,7 +45,8 @@ module.exports = {
         }
       },
       fontFamily: {
-        sans: ['var(--font-geist-sans)', 'Inter', 'Montserrat', 'sans-serif'],
+        sans: ['var(--font-inter)', 'Inter', 'Montserrat', 'sans-serif'],
+        roboto: ['var(--font-roboto)', 'Roboto', 'sans-serif'],
       },
       animation: {
         'spin-slow': 'spin 3s linear infinite',
