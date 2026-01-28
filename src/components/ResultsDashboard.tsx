@@ -66,14 +66,14 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
 
     const timer = setTimeout(() => {
       setShowAutoClose(true);
-    }, 35000); // 35 seconds
+    }, 65000); // 35 seconds
 
     return () => clearTimeout(timer);
   }, [showAutoClose]);
 
   useEffect(() => {
     if (!showAutoClose) {
-        setAutoCloseTimer(15); // reset timer when modal closes
+        setAutoCloseTimer(20); // reset timer when modal closes
         return;
     }
 
