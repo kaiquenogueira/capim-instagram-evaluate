@@ -137,20 +137,20 @@
   },
   {
     "handle": "andrepatier",
-    "followers": 4964,
+    "followers": 4969,
     "posts": 323,
-    "overallScore": 55,
+    "overallScore": 73,
     "criteria": {
-      "frequency": 10,
-      "ctaAndLinks": 90,
-      "positioningClarity": 90,
-      "socialProof": 60
+      "frequency": 60,
+      "ctaAndLinks": 95,
+      "positioningClarity": 95,
+      "socialProof": 75
     },
     "bioScores": {
-      "clarity": 90,
-      "cro": 85
+      "clarity": 95,
+      "cro": 90
     },
-    "timestamp": "2026-01-23T18:41:14.517Z"
+    "timestamp": "2026-01-28T02:18:23.662Z"
   },
   {
     "handle": "dra.isabelaamaciel",
@@ -562,20 +562,20 @@
   },
   {
     "handle": "capim.br",
-    "followers": 21176,
+    "followers": 21181,
     "posts": 250,
-    "overallScore": 70,
+    "overallScore": 75,
     "criteria": {
-      "frequency": 55,
-      "ctaAndLinks": 95,
-      "positioningClarity": 95,
+      "frequency": 90,
+      "ctaAndLinks": 100,
+      "positioningClarity": 100,
       "socialProof": 85
     },
     "bioScores": {
-      "clarity": 95,
+      "clarity": 100,
       "cro": 90
     },
-    "timestamp": "2026-01-27T20:02:42.732Z"
+    "timestamp": "2026-01-28T02:24:18.994Z"
   },
   {
     "handle": "paulobonavides",
@@ -598,17 +598,17 @@
     "handle": "drabrunaconde",
     "followers": 42134,
     "posts": 1815,
-    "overallScore": 79,
+    "overallScore": 86,
     "criteria": {
-      "frequency": 85,
+      "frequency": 70,
       "ctaAndLinks": 95,
       "positioningClarity": 95,
-      "socialProof": 80
+      "socialProof": 90
     },
     "bioScores": {
-      "clarity": 95,
+      "clarity": 90,
       "cro": 95
     },
-    "timestamp": "2026-01-27T21:05:08.439Z"
+    "timestamp": "2026-01-27T21:13:43.942Z"
   }
 ]

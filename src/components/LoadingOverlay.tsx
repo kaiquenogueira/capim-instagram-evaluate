@@ -164,6 +164,12 @@ export default function LoadingOverlay({ onComplete, onError, handle = "clinica"
         </div>
 
       </div>
+
+      <div className="absolute bottom-8 w-full text-center px-4">
+        <p className="text-neutral-500 font-medium text-sm md:text-base">
+            Fale com nosso time sobre a Camila, a Inteligência Artificial da Capim
+        </p>
+      </div>
     </div>
   );
 }

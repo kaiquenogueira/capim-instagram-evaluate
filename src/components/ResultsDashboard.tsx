@@ -430,7 +430,7 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
         </div>
 
         {/* 2. WhatsApp Section (Replaces Email Share) */}
-        <div className="p-4 md:px-8 md:py-6 border-b border-neutral-200/60 bg-neutral-50" data-html2canvas-ignore="true">
+        <div className="p-4 md:px-4 md:py-6 border-b border-neutral-200/60 bg-neutral-50" data-html2canvas-ignore="true">
            <div className="flex flex-col lg:flex-row items-center justify-between gap-6 bg-white p-4 md:p-4 rounded-2xl border border-neutral-200 shadow-sm">
               <div className="flex-1">
                  <h3 className="text-lg font-bold text-neutral-900 mb-2 flex items-center gap-2">
@@ -441,9 +441,9 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
                     Digite seu número para receber o PDF completo com a análise detalhada.
                  </p>
               </div>
-              <div className="flex items-center gap-3 w-full lg:w-auto">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
                  {sentSuccess ? (
-                    <div className="flex items-center gap-2 text-green-600 font-bold bg-green-50 px-4 py-3 rounded-xl border border-green-100">
+                    <div className="flex items-center justify-center gap-2 text-green-600 font-bold bg-green-50 px-4 py-3 rounded-xl border border-green-100 w-full sm:w-auto">
                         <CheckCircle size={20} />
                         <span>Enviado com sucesso!</span>
                     </div>
@@ -454,12 +454,12 @@ export default function ResultsDashboard({ result, onReset }: ResultsDashboardPr
                             value={phone}
                             onChange={handlePhoneChange}
                             placeholder="(11) 99999-9999"
-                            className="flex-1 lg:w-48 px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-capim-500 focus:border-transparent outline-none transition-all text-neutral-900 font-medium placeholder:text-neutral-400"
+                            className="w-full sm:w-auto flex-1 lg:w-48 px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-capim-500 focus:border-transparent outline-none transition-all text-neutral-900 font-medium placeholder:text-neutral-400"
                         />
                         <button 
                             onClick={handleSendWhatsApp}
                             disabled={isSending || phone.length < 14}
-                            className="px-6 py-3 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2 shadow-sm hover:shadow-md whitespace-nowrap"
+                            className="px-6 py-3 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2 shadow-sm hover:shadow-md whitespace-nowrap"
                         >
                             {isSending ? (
                                 <span className="flex items-center gap-2">
