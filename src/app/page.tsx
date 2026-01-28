@@ -52,9 +52,6 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      <div className="absolute -top-24 -right-24 w-[520px] h-[520px] bg-capim-100 rounded-full blur-3xl opacity-60" />
-      <div className="absolute -bottom-28 -left-28 w-[520px] h-[520px] bg-neutral-100 rounded-full blur-3xl opacity-60" />
-
       <div className="w-full max-w-md md:max-w-2xl lg:max-w-5xl z-10 flex flex-col items-center">
         
         <div className="w-full">
@@ -67,11 +64,11 @@ export default function Home() {
                 exit={{ opacity: 0, y: -20 }}
                 className="relative w-full flex items-center justify-center h-[95vh]"
               >
-                <div className="relative z-5 w-full flex flex-col justify-start items-center h-full pt-10">
+                <div className="relative z-5 w-full flex flex-col justify-center items-center h-full pt-40">
                   <ScannerForm onScan={handleStartScan} errorMessage={scanError} />
                   
                   <div className="absolute bottom-20 text-center">
-                    <p className="text-4xl md:text-6xl text-capim-500 font-light drop-shadow-sm font-roboto">
+                    <p className="text-3xl md:text-4xl text-capim-500 font-light drop-shadow-sm font-roboto">
                       Descubra o <span className="font-bold">potencial</span> do seu <span className="font-bold">Instagram</span> com a <span className="font-bold">Camila!</span> 
                     </p>
                   </div>
