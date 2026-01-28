@@ -64,11 +64,11 @@ export default function Home() {
                 exit={{ opacity: 0, y: -20 }}
                 className="relative w-full flex items-center justify-center h-[95vh]"
               >
-                <div className="relative z-5 w-full flex flex-col justify-center items-center h-full pt-40">
+                <div className="relative z-5 w-full flex flex-col justify-center items-center h-full pt-[350px]">
                   <ScannerForm onScan={handleStartScan} errorMessage={scanError} />
                   
                   <div className="absolute bottom-20 text-center">
-                    <p className="text-3xl md:text-4xl text-capim-500 font-light drop-shadow-sm font-roboto">
+                    <p className="text-4xl md:text-5xl text-capim-500 font-light drop-shadow-sm font-roboto">
                       Descubra o <span className="font-bold">potencial</span> do seu <span className="font-bold">Instagram</span> com a <span className="font-bold">Camila!</span> 
                     </p>
                   </div>
