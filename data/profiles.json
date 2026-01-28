@@ -562,20 +562,20 @@
   },
   {
     "handle": "capim.br",
-    "followers": 21191,
+    "followers": 21198,
     "posts": 251,
-    "overallScore": 66,
+    "overallScore": 73,
     "criteria": {
-      "frequency": 70,
-      "ctaAndLinks": 90,
-      "positioningClarity": 100,
-      "socialProof": 85
+      "frequency": 85,
+      "ctaAndLinks": 95,
+      "positioningClarity": 95,
+      "socialProof": 70
     },
     "bioScores": {
-      "clarity": 100,
-      "cro": 90
+      "clarity": 95,
+      "cro": 95
     },
-    "timestamp": "2026-01-28T19:26:39.742Z"
+    "timestamp": "2026-01-28T21:17:11.772Z"
   },
   {
     "handle": "paulobonavides",

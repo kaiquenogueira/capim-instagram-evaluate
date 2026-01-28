@@ -53,31 +53,34 @@ export default function ScannerForm({ onScan, errorMessage }: ScannerFormProps) 
               Perfil do Instagram da Clínica
             </label>
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
-                <svg width="0" height="0">
-                  <linearGradient id="instagram-gradient" x1="100%" y1="100%" x2="0%" y2="0%">
-                    <stop stopColor="#f09433" offset="0%" />
-                    <stop stopColor="#e6683c" offset="25%" />
-                    <stop stopColor="#dc2743" offset="50%" />
-                    <stop stopColor="#cc2366" offset="75%" />
-                    <stop stopColor="#bc1888" offset="100%" />
-                  </linearGradient>
-                </svg>
-                <Instagram size={28} style={{ stroke: "url(#instagram-gradient)" }} />
+                <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none gap-3">
+                  <div className="flex items-center justify-center">
+                    <svg width="0" height="0">
+                      <linearGradient id="instagram-gradient" x1="100%" y1="100%" x2="0%" y2="0%">
+                        <stop stopColor="#f09433" offset="0%" />
+                        <stop stopColor="#e6683c" offset="25%" />
+                        <stop stopColor="#dc2743" offset="50%" />
+                        <stop stopColor="#cc2366" offset="75%" />
+                        <stop stopColor="#bc1888" offset="100%" />
+                      </linearGradient>
+                    </svg>
+                    <Instagram size={28} style={{ stroke: "url(#instagram-gradient)" }} />
+                  </div>
+                  <span className="text-xl text-neutral-400 font-medium pt-1">@</span>
+                </div>
+                <input
+                  type="text"
+                  id="handle"
+                  value={handle}
+                  onChange={(e) => {
+                    setHandle(e.target.value);
+                    setError('');
+                  }}
+                  placeholder="suaclinica"
+                  className="block w-full pl-20 pr-4 py-5 bg-white border border-neutral-200 rounded-2xl text-xl focus:ring-4 focus:ring-capim-200 focus:border-capim-500 outline-none transition-all placeholder:text-neutral-300 shadow-sm"
+                  autoComplete="off"
+                />
               </div>
-              <input
-                type="text"
-                id="handle"
-                value={handle}
-                onChange={(e) => {
-                  setHandle(e.target.value);
-                  setError('');
-                }}
-                placeholder="@suaclinica"
-                className="block w-full pl-16 pr-4 py-5 bg-white border border-neutral-200 rounded-2xl text-xl focus:ring-4 focus:ring-capim-200 focus:border-capim-500 outline-none transition-all placeholder:text-neutral-300 shadow-sm"
-                autoComplete="off"
-              />
-            </div>
             {error && (
               <motion.p 
                 initial={{ opacity: 0, height: 0 }} 
